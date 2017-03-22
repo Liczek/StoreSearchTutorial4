@@ -53,8 +53,6 @@ class SearchViewController: UIViewController {
 
 }
 
-
-
 //MARK: - SearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
