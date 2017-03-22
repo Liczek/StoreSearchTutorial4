@@ -28,6 +28,11 @@ class SearchViewController: UIViewController {
         tableView.keyboardDismissMode = .interactive
         // żeby wydobyć rowsy ukryte pod search barem
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+        
+        
+        //Cell NIB register IMPORTANT
+        let cellNib = UINib(nibName: "SearchResultCell", bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: "SearchResultCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,21 +105,23 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "SearchResultCell"
+//        let cellIdentifier = "SearchResultCell"
+//        
+//        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
+//        
+//        if cell ==  nil {
+//            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+//        }
         
-        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-        
-        if cell ==  nil {
-            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell", for: indexPath) as! SearchResultCell
         
         if searchResults.count == 0 {
-            cell.textLabel!.text = "(Nothing found)"
-            cell.detailTextLabel!.text = "(justin bieber not exist in iTunes)"
+            cell.nameLabel!.text = "(Nothing found)"
+            cell.artistNameLabel!.text = "(justin bieber not exist in iTunes)"
         } else {
             let searchResult = searchResults[indexPath.row]
-            cell.textLabel!.text = searchResult.name
-            cell.detailTextLabel!.text = searchResult.artistName
+            cell.nameLabel!.text = searchResult.name
+            cell.artistNameLabel!.text = searchResult.artistName
         }
         
         return cell

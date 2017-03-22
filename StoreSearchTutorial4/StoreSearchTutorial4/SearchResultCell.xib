@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" id="e3b-xf-BiQ">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" id="e3b-xf-BiQ" customClass="SearchResultCell" customModule="StoreSearchTutorial4" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="e3b-xf-BiQ" id="YYv-61-VVA">
@@ -49,6 +49,11 @@
                     <constraint firstAttribute="bottom" secondItem="0Wz-oe-zMW" secondAttribute="bottom" constant="17" id="esx-mW-NNb"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="artistNameLabel" destination="0Wz-oe-zMW" id="EYc-0Y-vqI"/>
+                <outlet property="artworkImageView" destination="PoS-qJ-ZpV" id="qPk-hJ-xOP"/>
+                <outlet property="nameLabel" destination="WjI-V1-mnR" id="doA-OR-I2g"/>
+            </connections>
             <point key="canvasLocation" x="-21" y="51"/>
         </tableViewCell>
     </objects>
