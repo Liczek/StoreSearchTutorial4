@@ -41,7 +41,14 @@ class SearchViewController: UIViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-
+    // uniemożliwia wybranie wiersza gdy searchResults.count zwraca 0 po wyszukaniu
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if searchResults.count == 0 {
+            return nil
+        } else {
+            return indexPath
+        }
+    }
 
 
 }
