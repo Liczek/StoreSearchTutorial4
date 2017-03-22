@@ -24,7 +24,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.keyboardDismissMode = .interactive
         // żeby wydobyć rowsy ukryte pod search barem
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
     }
@@ -40,6 +40,8 @@ class SearchViewController: UIViewController {
 //MARK: - SearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchBar.resignFirstResponder()
         //za każdym razem gdy odpala się funkcję tworzony jest nowa arrey searchResult jeśli istniała wcześniej to stara zostaje usunięta i powstaje nowa pusta, którą napełniamy poprzez append
         searchResults = []
         
@@ -51,6 +53,11 @@ extension SearchViewController: UISearchBarDelegate {
         
         tableView.reloadData()
         
+    }
+    
+    //UIBarPositionDelegate ma możliwość połączenia się z innymi obiektami w tym wypadku z UISearchBarem
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return .topAttached
     }
 }
 
