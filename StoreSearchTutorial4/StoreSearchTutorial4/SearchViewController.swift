@@ -30,6 +30,8 @@ class SearchViewController: UIViewController {
         tableView.keyboardDismissMode = .interactive
         // żeby wydobyć rowsy ukryte pod search barem
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+        //klawiatura sie pojawia na starcie
+        searchBar.becomeFirstResponder()
         
         
         //Cell NIB register IMPORTANT
