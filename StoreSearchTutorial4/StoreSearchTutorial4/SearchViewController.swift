@@ -25,14 +25,16 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = 80
+        //ukrywanie klawiatury przy swipie
         tableView.keyboardDismissMode = .interactive
         // żeby wydobyć rowsy ukryte pod search barem
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
         
         
         //Cell NIB register IMPORTANT
-        let cellNib = UINib(nibName: "SearchResultCell", bundle: nil)
-        tableView.register(cellNib, forCellReuseIdentifier: "SearchResultCell")
+        let cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.searchResultCell)
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,6 +55,12 @@ class SearchViewController: UIViewController {
         } else {
             return indexPath
         }
+    }
+    
+//MARK: - STRUCTS
+    
+    struct TableViewCellIdentifiers {
+        static let searchResultCell = "SearchResultCell"
     }
 
 
@@ -113,7 +121,7 @@ extension SearchViewController: UITableViewDataSource {
 //            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
 //        }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell", for: indexPath) as! SearchResultCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCellIdentifiers.searchResultCell, for: indexPath) as! SearchResultCell
         
         if searchResults.count == 0 {
             cell.nameLabel!.text = "(Nothing found)"
