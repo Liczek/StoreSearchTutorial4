@@ -33,8 +33,10 @@ class SearchViewController: UIViewController {
         
         
         //Cell NIB register IMPORTANT
-        let cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
+        var cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.searchResultCell)
+        cellNib = UINib(nibName: TableViewCellIdentifiers.nothingFoundCell, bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +63,7 @@ class SearchViewController: UIViewController {
     
     struct TableViewCellIdentifiers {
         static let searchResultCell = "SearchResultCell"
+        static let nothingFoundCell = "NothingFoundCell"
     }
 
 
@@ -121,18 +124,16 @@ extension SearchViewController: UITableViewDataSource {
 //            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
 //        }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCellIdentifiers.searchResultCell, for: indexPath) as! SearchResultCell
         
         if searchResults.count == 0 {
-            cell.nameLabel!.text = "(Nothing found)"
-            cell.artistNameLabel!.text = "(justin bieber not exist in iTunes)"
+            return tableView.dequeueReusableCell(withIdentifier: TableViewCellIdentifiers.nothingFoundCell, for: indexPath)
         } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCellIdentifiers.searchResultCell, for: indexPath) as! SearchResultCell
             let searchResult = searchResults[indexPath.row]
             cell.nameLabel!.text = searchResult.name
             cell.artistNameLabel!.text = searchResult.artistName
+            return cell
         }
-        
-        return cell
     }
 }
 
