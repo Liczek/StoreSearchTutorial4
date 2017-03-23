@@ -67,6 +67,17 @@ class SearchViewController: UIViewController {
         static let searchResultCell = "SearchResultCell"
         static let nothingFoundCell = "NothingFoundCell"
     }
+    
+//MARK: - RANDOM METHODS
+    
+    func iTunesURL(searchText: String) -> URL {
+        //poniższa linijka jest po zeby było można spacje wyszukiwać
+        let escapedSearchText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        
+        let urlString = String(format: "https://itunes.apple.com/search?term=%@", escapedSearchText)
+        let url = URL(string: urlString)
+        return url!
+    }
 
 
 }
@@ -74,27 +85,22 @@ class SearchViewController: UIViewController {
 //MARK: - SearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        searchBar.resignFirstResponder()
-        //za każdym razem gdy odpala się funkcję tworzony jest nowa arrey searchResult jeśli istniała wcześniej to stara zostaje usunięta i powstaje nowa pusta, którą napełniamy poprzez append
-        searchResults = []
-        
-        if searchBar.text! != "justin bieber" {
-        for i in 0...2 {
-            let searchResult = SearchResult()
-            searchResult.name = String(format: "Fake Result %d for", i)
-            searchResult.artistName = searchBar.text!
-            searchResults.append(searchResult)
+        if !searchBar.text!.isEmpty {
+            searchBar.resignFirstResponder()
             
-            // %d - placeholder for ints, %f - placeholder for floatings z miejscem po przecinku, %@ - placeholder dla wszystkich pozostałych objektów np. Sting
-            // Tworzenie string w miejsce % wstawia pierwszy obiekt po przecinku, w miejsce drugiego % kolejny po przecinku itd.
-            //searchResults.append(String(format: "Fake Result %d for '%@'", i, searchBar.text!))
-            }
+            hasSearched = true
+            searchResults = []
+            
+            let url = iTunesURL(searchText: searchBar.text!)
+            print("URL: '\(url)'")
+            tableView.reloadData()
         }
-        hasSearched = true
-        tableView.reloadData()
+       
+        
         
     }
+    
+
     
     //UIBarPositionDelegate ma możliwość połączenia się z innymi obiektami w tym wypadku z UISearchBarem
     func position(for bar: UIBarPositioning) -> UIBarPosition {
