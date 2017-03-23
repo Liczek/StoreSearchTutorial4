@@ -78,12 +78,25 @@ class SearchViewController: UIViewController {
         let url = URL(string: urlString)
         return url!
     }
-    
+    // zapytanie do strony precyzujące ze odpowiedz ma być w utf-8
     func performStoreRequest(with url: URL) -> String? {
         do {
             return try String(contentsOf: url, encoding: .utf8)
         } catch {
             print("Download  Error: \(error)")
+            return nil
+        }
+    }
+    
+    //dzielenie Dictionaries otrzymanych z apple (każdy disctionary to jeden wynik wyszukiwania)
+    func parse(json: String) -> [String: Any]? {
+        guard let data = json.data(using: .utf8, allowLossyConversion: false)
+            else { return nil }
+        
+        do {
+            return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+        } catch {
+            print("JSON Error: \(error)")
             return nil
         }
     }
@@ -104,6 +117,10 @@ extension SearchViewController: UISearchBarDelegate {
             print("URL: '\(url)'")
             if let jsonString = performStoreRequest(with: url) {
                 print("Received JSON string '\(jsonString)'")
+                
+                if let jsonDictionary = parse(json: jsonString) {
+                    print("Dictionary \(jsonDictionary)")
+                }
             }
             tableView.reloadData()
         }
