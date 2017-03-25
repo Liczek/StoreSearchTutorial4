@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C80E52641E86E47D0015D918 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C80E52631E86E47D0015D918 /* LoadingCell.xib */; };
 		C848CBD91E84552500563234 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C848CBD81E84552500563234 /* NothingFoundCell.xib */; };
 		C85666801E8308E700DC4F90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C856667F1E8308E700DC4F90 /* AppDelegate.swift */; };
 		C85666821E8308E700DC4F90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85666811E8308E700DC4F90 /* SearchViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C80E52631E86E47D0015D918 /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		C848CBD81E84552500563234 /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
 		C856667C1E8308E700DC4F90 /* StoreSearchTutorial4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearchTutorial4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C856667F1E8308E700DC4F90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				C85666831E8308E800DC4F90 /* Main.storyboard */,
 				C85666931E83337600DC4F90 /* SearchResultCell.xib */,
 				C848CBD81E84552500563234 /* NothingFoundCell.xib */,
+				C80E52631E86E47D0015D918 /* LoadingCell.xib */,
 				C85666861E8308E800DC4F90 /* Assets.xcassets */,
 				C85666881E8308E800DC4F90 /* LaunchScreen.storyboard */,
 				C856668B1E8308E800DC4F90 /* Info.plist */,
@@ -138,6 +141,7 @@
 			files = (
 				C856668A1E8308E800DC4F90 /* LaunchScreen.storyboard in Resources */,
 				C85666871E8308E800DC4F90 /* Assets.xcassets in Resources */,
+				C80E52641E86E47D0015D918 /* LoadingCell.xib in Resources */,
 				C85666941E83337600DC4F90 /* SearchResultCell.xib in Resources */,
 				C848CBD91E84552500563234 /* NothingFoundCell.xib in Resources */,
 				C85666851E8308E800DC4F90 /* Main.storyboard in Resources */,
