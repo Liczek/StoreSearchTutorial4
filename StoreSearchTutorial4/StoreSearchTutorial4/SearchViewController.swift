@@ -74,7 +74,8 @@ class SearchViewController: UIViewController {
         //poniższa linijka jest po zeby było można spacje wyszukiwać
         let escapedSearchText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         
-        let urlString = String(format: "https://itunes.apple.com/search?term=%@", escapedSearchText)
+        //&limit=200 ustawia z default limit = 50 na 200 wyników
+        let urlString = String(format: "https://itunes.apple.com/search?term=%@&limit=200", escapedSearchText)
         let url = URL(string: urlString)
         return url!
     }
