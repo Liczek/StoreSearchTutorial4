@@ -120,20 +120,28 @@ extension SearchViewController: UISearchBarDelegate {
                 
                 if let jsonDictionary = parse(json: jsonString) {
                     print("Dictionary \(jsonDictionary)")
+                    tableView.reloadData()
+                    return
                 }
             }
-            tableView.reloadData()
+            showNetworkError()
         }
        
         
         
     }
     
-
-    
     //UIBarPositionDelegate ma możliwość połączenia się z innymi obiektami w tym wypadku z UISearchBarem
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return .topAttached
+    }
+    
+    func showNetworkError() {
+        let alert = UIAlertController(title: "Whooops....", message: "There was an error reading from the iTunes Store. Please try again", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
