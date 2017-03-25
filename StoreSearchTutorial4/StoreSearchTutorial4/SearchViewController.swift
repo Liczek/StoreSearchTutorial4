@@ -89,6 +89,7 @@ class SearchViewController: UIViewController {
     }
     
     //dzielenie Dictionaries otrzymanych z apple (każdy disctionary to jeden wynik wyszukiwania)
+    // tym parse dzielimy array na dictionary [String: Any]
     func parse(json: String) -> [String: Any]? {
         guard let data = json.data(using: .utf8, allowLossyConversion: false)
             else { return nil }
@@ -98,6 +99,28 @@ class SearchViewController: UIViewController {
         } catch {
             print("JSON Error: \(error)")
             return nil
+        }
+    }
+    // tym parse wyszukujemy w elementach arrey results 2 pozycji wrapperType i kind 
+    // wrapperType: track - song, movie, music video, podcats, episod of a TV show
+    //                    - audiobook
+    //                    - software
+    func parse(dictionary: [String: Any]) {
+        //sprawdzasz czy to dictionary zawiera nazwę results i robisz arrey z niego
+        guard let array = dictionary["results"] as? [Any] else {
+            print("Expected 'results' array")
+            return
+        }
+        //robisz loop dla kazdego elementu arrey wykonujesz kolejny if
+        for resultDict in array {
+            
+            if let resultDict = resultDict as? [String: Any] {
+                // dla kazdego results (dictionary) wyszukujesz wartości wrapperType - on okresla czy to piosenka film ebook czy apliakcja
+                if let wrapperType = resultDict["wrapperType"] as? String,
+                let kind = resultDict["kind"] as? String {
+                    print("wrapperType: \(wrapperType), kind: \(kind)")
+                }
+            }
         }
     }
 
@@ -120,6 +143,9 @@ extension SearchViewController: UISearchBarDelegate {
                 
                 if let jsonDictionary = parse(json: jsonString) {
                     print("Dictionary \(jsonDictionary)")
+                    
+                    parse(dictionary: jsonDictionary)
+                    
                     tableView.reloadData()
                     return
                 }
