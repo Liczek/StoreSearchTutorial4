@@ -21,3 +21,7 @@ class SearchResult {
     var genre = ""
     
 }
+// < oznacza, że jesli search result po lwej stronie jest mniejszy niz po prawej stronie to zwraca true, a jako żę sortujemy rosnąco to te co daja true wskoczą na początek listy
+func < (lhs: SearchResult, rhs: SearchResult) -> Bool {
+    return lhs.name.localizedStandardCompare(rhs.name) == .orderedAscending
+}
