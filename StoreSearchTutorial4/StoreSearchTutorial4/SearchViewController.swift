@@ -278,38 +278,32 @@ extension SearchViewController: UISearchBarDelegate {
             hasSearched = true
             searchResults = []
             
-            let url = iTunesURL(searchText: searchBar.text!)
-            print("URL: '\(url)'")
-            if let jsonString = performStoreRequest(with: url) {
-                print("Received JSON string '\(jsonString)'")
+            let queue = DispatchQueue.global()
+            
+            queue.async {
+                let url = self.iTunesURL(searchText: searchBar.text!)
                 
-                if let jsonDictionary = parse(json: jsonString) {
-                    print("Dictionary \(jsonDictionary)")
+                if let jsonString = self.performStoreRequest(with: url), let jsonDictionary = self.parse(json: jsonString) {
                     
-                    searchResults = parse(dictionary: jsonDictionary)
+                    self.searchResults = self.parse(dictionary: jsonDictionary)
                     // sortowanie wyniku alfabetycznie
-                        //opcja 1
-//                    searchResults.sort(by: { result1, result2 in
-//                        return result1.name.localizedStandardCompare(result2.name) == .orderedAscending})
+                    self.searchResults.sort(by: <)
                     
-                        //opcja 2
-//                    searchResults.sort { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
-                        //opcja 3
-//                    searchResults.sort { $0 < $1}
-                        //option 4
-                    searchResults.sort(by: <)
-                    
-                    isLoading = false
-                    tableView.reloadData()
+                        DispatchQueue.main.async {
+                            self.isLoading = false
+                            self.tableView.reloadData()
+                        print("Downloading Data, Parsing and Sorting DONE!")
+                        }
                     return
                 }
+                DispatchQueue.main.async {
+                    self.showNetworkError()
+                    print("ERROR! - with data, parsing or sorting")
+                }                
             }
-            showNetworkError()
         }
-       
-        
-        
     }
+    
     
     //UIBarPositionDelegate ma możliwość połączenia się z innymi obiektami w tym wypadku z UISearchBarem
     func position(for bar: UIBarPositioning) -> UIBarPosition {
