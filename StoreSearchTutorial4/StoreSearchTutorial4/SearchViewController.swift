@@ -83,24 +83,13 @@ class SearchViewController: UIViewController {
         let url = URL(string: urlString)
         return url!
     }
-    // zapytanie do strony precyzujące ze odpowiedz ma być w utf-8
-    func performStoreRequest(with url: URL) -> String? {
-        do {
-            return try String(contentsOf: url, encoding: .utf8)
-        } catch {
-            print("Download  Error: \(error)")
-            return nil
-        }
-    }
+    
 
 //MARK: - PARSEs for JSON
     
     //dzielenie Dictionaries otrzymanych z apple (każdy disctionary to jeden wynik wyszukiwania)
     // tym parse dzielimy array na dictionary [String: Any]
-    func parse(json: String) -> [String: Any]? {
-        guard let data = json.data(using: .utf8, allowLossyConversion: false)
-            else { return nil }
-        
+    func parse(json data: Data) -> [String: Any]? {
         do {
             return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
         } catch {
@@ -278,29 +267,46 @@ extension SearchViewController: UISearchBarDelegate {
             hasSearched = true
             searchResults = []
             
-            let queue = DispatchQueue.global()
+        
+            let url = iTunesURL(searchText: searchBar.text!)
             
-            queue.async {
-                let url = self.iTunesURL(searchText: searchBar.text!)
-                
-                if let jsonString = self.performStoreRequest(with: url), let jsonDictionary = self.parse(json: jsonString) {
-                    
-                    self.searchResults = self.parse(dictionary: jsonDictionary)
-                    // sortowanie wyniku alfabetycznie
-                    self.searchResults.sort(by: <)
-                    
+            let session = URLSession.shared
+            
+            // opcja 1
+//            let dataTask = session.dataTask(with: url, completionHandler: {
+//                (data: Data?, response: URLResponse? , error: Error?) in
+            // opcja 2
+            let dataTask = session.dataTask(with: url) {
+                data, response, error in
+                print("On main thread?" + (Thread.current.isMainThread ? "Yes" : "No"))
+                if let error = error {
+                    print("Failure! \(error)")
+                } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                    if let data = data, let jsonDictionary = self.parse(json: data) {
+                        self.searchResults = self.parse(dictionary: jsonDictionary)
+                        self.searchResults.sort(by: <)
+                        
                         DispatchQueue.main.async {
                             self.isLoading = false
                             self.tableView.reloadData()
-                        print("Downloading Data, Parsing and Sorting DONE!")
                         }
-                    return
+                        return
+                    }
+                } else {
+                    print("Failure! \(response!)")
                 }
+                
                 DispatchQueue.main.async {
+                    self.hasSearched = false
+                    self.isLoading = false
+                    self.tableView.reloadData()
                     self.showNetworkError()
-                    print("ERROR! - with data, parsing or sorting")
-                }                
+                }
+                
             }
+            
+            dataTask.resume()
+            
         }
     }
     
