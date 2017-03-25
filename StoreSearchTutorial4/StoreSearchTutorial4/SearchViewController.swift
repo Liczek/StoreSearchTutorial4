@@ -87,6 +87,8 @@ class SearchViewController: UIViewController {
             return nil
         }
     }
+
+//MARK: - PARSEs for JSON
     
     //dzielenie Dictionaries otrzymanych z apple (każdy disctionary to jeden wynik wyszukiwania)
     // tym parse dzielimy array na dictionary [String: Any]
@@ -151,7 +153,7 @@ class SearchViewController: UIViewController {
         searchResult.currency = dictionary["currency"] as! String
         
         // price i genre czasem poprostu nie występują w JSON data
-        if let price = dictionary["trackPirice"] as? Double {
+        if let price = dictionary["trackPrice"] as? Double {
             searchResult.price = price
         }
         
@@ -160,6 +162,78 @@ class SearchViewController: UIViewController {
         }
         return searchResult
     }
+    
+    func parse(audiobook dictionary: [String: Any]) -> SearchResult {
+        let searchResult = SearchResult()
+        
+        searchResult.name = dictionary["collectionName"] as! String
+        searchResult.artistName = dictionary["artistName"] as! String
+        searchResult.artworkSmallURL = dictionary["artworkUrl60"] as! String
+        searchResult.artworkLargeURL = dictionary["artworkUrl100"] as! String
+        searchResult.storeURL = dictionary["collectionViewUrl"] as! String
+        
+        //audiobook nie ma kategorii kind wiec ustalamy ja samemu
+        searchResult.kind = "audiobook"
+        searchResult.currency = dictionary["currency"] as! String
+        
+        // price i genre czasem poprostu nie występują w JSON data
+        if let price = dictionary["collectionPrice"] as? Double {
+            searchResult.price = price
+        }
+        
+        if let genre = dictionary["primaryGenreName"] as? String {
+            searchResult.genre = genre
+        }
+        return searchResult
+    }
+    
+    func parse(software dictionary: [String: Any]) -> SearchResult {
+        let searchResult = SearchResult()
+        
+        searchResult.name = dictionary["trackName"] as! String
+        searchResult.artistName = dictionary["artistName"] as! String
+        searchResult.artworkSmallURL = dictionary["artworkUrl60"] as! String
+        searchResult.artworkLargeURL = dictionary["artworkUrl100"] as! String
+        searchResult.storeURL = dictionary["trackViewUrl"] as! String
+        searchResult.kind = dictionary["kind"] as! String
+        searchResult.currency = dictionary["currency"] as! String
+        
+        // price i genre czasem poprostu nie występują w JSON data
+        if let price = dictionary["price"] as? Double {
+            searchResult.price = price
+        }
+        
+        if let genre = dictionary["primaryGenreName"] as? String {
+            searchResult.genre = genre
+        }
+        return searchResult
+    }
+
+    
+    func parse(ebook dictionary: [String: Any]) -> SearchResult {
+        let searchResult = SearchResult()
+        
+        searchResult.name = dictionary["trackName"] as! String
+        searchResult.artistName = dictionary["artistName"] as! String
+        searchResult.artworkSmallURL = dictionary["artworkUrl60"] as! String
+        searchResult.artworkLargeURL = dictionary["artworkUrl100"] as! String
+        searchResult.storeURL = dictionary["trackViewUrl"] as! String
+        searchResult.kind = dictionary["kind"] as! String
+        searchResult.currency = dictionary["currency"] as! String
+        
+        // price i genre czasem poprostu nie występują w JSON data
+        if let price = dictionary["price"] as? Double {
+            searchResult.price = price
+        }
+        //ebook nie ma jednego genre a arrey of genres wiec wypisujemy je wszystkie po przecinku: joined with separator
+        if let genres: Any = dictionary["genres"] {
+            searchResult.genre = (genres as! [String]).joined(separator: ", ")
+        }
+        return searchResult
+    }
+
+
+    
     // słowniczek - kind na wyświetlany kind
     func kindForDisplay(_ kind: String) -> String {
         switch kind {
