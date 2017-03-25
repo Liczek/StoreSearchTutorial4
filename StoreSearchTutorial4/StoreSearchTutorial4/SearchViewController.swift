@@ -105,23 +105,60 @@ class SearchViewController: UIViewController {
     // wrapperType: track - song, movie, music video, podcats, episod of a TV show
     //                    - audiobook
     //                    - software
-    func parse(dictionary: [String: Any]) {
+    func parse(dictionary: [String: Any]) -> [SearchResult] {
         //sprawdzasz czy to dictionary zawiera nazwę results i robisz arrey z niego
         guard let array = dictionary["results"] as? [Any] else {
             print("Expected 'results' array")
-            return
+            //zwracamy pustą array
+            return []
         }
+        
+        var searchResults: [SearchResult] = []
         //robisz loop dla kazdego elementu arrey wykonujesz kolejny if
         for resultDict in array {
             
             if let resultDict = resultDict as? [String: Any] {
                 // dla kazdego results (dictionary) wyszukujesz wartości wrapperType - on okresla czy to piosenka film ebook czy apliakcja
-                if let wrapperType = resultDict["wrapperType"] as? String,
-                let kind = resultDict["kind"] as? String {
-                    print("wrapperType: \(wrapperType), kind: \(kind)")
+                var searchResult: SearchResult?
+                
+                if let wrapperType = resultDict["wrapperType"] as? String {
+                    switch wrapperType {
+                    case "track":
+                        searchResult = parse(track: resultDict)
+                    default:
+                        break
+                    }
+                }
+                
+                if let result = searchResult {
+                    searchResults.append(result)
                 }
             }
         }
+        return searchResults
+    }
+    
+    
+    func parse(track dictionary: [String: Any]) -> SearchResult {
+        let searchResult = SearchResult()
+        
+        searchResult.name = dictionary["trackName"] as! String
+        searchResult.artistName = dictionary["artistName"] as! String
+        searchResult.artworkSmallURL = dictionary["artworkUrl60"] as! String
+        searchResult.artworkLargeURL = dictionary["artworkUrl100"] as! String
+        searchResult.storeURL = dictionary["trackViewUrl"] as! String
+        searchResult.kind = dictionary["kind"] as! String
+        searchResult.currency = dictionary["currency"] as! String
+        
+        // price i genre czasem poprostu nie występują w JSON data
+        if let price = dictionary["trackPirice"] as? Double {
+            searchResult.price = price
+        }
+        
+        if let genre = dictionary["primaryGenreName"] as? String {
+            searchResult.genre = genre
+        }
+        return searchResult
     }
 
 
@@ -144,7 +181,7 @@ extension SearchViewController: UISearchBarDelegate {
                 if let jsonDictionary = parse(json: jsonString) {
                     print("Dictionary \(jsonDictionary)")
                     
-                    parse(dictionary: jsonDictionary)
+                    searchResults = parse(dictionary: jsonDictionary)
                     
                     tableView.reloadData()
                     return
