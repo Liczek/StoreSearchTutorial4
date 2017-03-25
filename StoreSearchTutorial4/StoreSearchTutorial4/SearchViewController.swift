@@ -160,6 +160,7 @@ class SearchViewController: UIViewController {
         }
         return searchResult
     }
+    
 
 
 }
@@ -224,14 +225,7 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cellIdentifier = "SearchResultCell"
-//        
-//        var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-//        
-//        if cell ==  nil {
-//            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
-//        }
-        
+       
         
         if searchResults.count == 0 {
             return tableView.dequeueReusableCell(withIdentifier: TableViewCellIdentifiers.nothingFoundCell, for: indexPath)
@@ -239,7 +233,12 @@ extension SearchViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCellIdentifiers.searchResultCell, for: indexPath) as! SearchResultCell
             let searchResult = searchResults[indexPath.row]
             cell.nameLabel!.text = searchResult.name
-            cell.artistNameLabel!.text = searchResult.artistName
+            //jakby nie bylo w JSON artisName to Unknown jak będzie to artistName i kind
+            if searchResult.artistName.isEmpty {
+                cell.artistNameLabel.text! = "Unknown"
+            } else {
+                cell.artistNameLabel.text! = String(format: "%@ (%@)", searchResult.artistName, searchResult.kind)
+            }
             return cell
         }
     }
