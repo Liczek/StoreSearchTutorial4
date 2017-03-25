@@ -123,18 +123,25 @@ class SearchViewController: UIViewController {
                 // dla kazdego results (dictionary) wyszukujesz wartości wrapperType - on okresla czy to piosenka film ebook czy apliakcja
                 var searchResult: SearchResult?
                 
-                if let wrapperType = resultDict["wrapperType"] as? String {
-                    switch wrapperType {
-                    case "track":
-                        searchResult = parse(track: resultDict)
-                    default:
-                        break
+                    if let wrapperType = resultDict["wrapperType"] as? String {
+                        switch wrapperType {
+                        case "track":
+                            searchResult = parse(track: resultDict)
+                        case "audiobook":
+                            searchResult = parse(audiobook: resultDict)
+                        case "software":
+                            searchResult = parse(software: resultDict)
+                        default:
+                            break
+                        }
+                    // e-booki nie maja wrapperType więc trzeba odnieść się do kind i wyszukac kind == "ebook"
+                    } else if let kind = resultDict["kind"] as? String, kind == "ebook" {
+                        searchResult = parse(ebook: resultDict)
                     }
-                }
-                
-                if let result = searchResult {
-                    searchResults.append(result)
-                }
+                    
+                    if let result = searchResult {
+                        searchResults.append(result)
+                    }
             }
         }
         return searchResults
