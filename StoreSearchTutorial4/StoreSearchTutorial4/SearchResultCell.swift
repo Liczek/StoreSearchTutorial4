@@ -10,6 +10,8 @@ import UIKit
 
 class SearchResultCell: UITableViewCell {
     
+    var downloadTask: URLSessionDownloadTask?
+    
 //MARK: - OUTLETS
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -42,6 +44,13 @@ class SearchResultCell: UITableViewCell {
         } else {
             artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, kindForDisplay(searchResult.kind))
         }
+        
+        // załadowanie obrazka do UIImageView
+        artworkImageView.image = UIImage(named: "Placeholder")
+        if let smallURL = URL(string: searchResult.artworkSmallURL) {
+            downloadTask = artworkImageView.loadImage(url: smallURL)
+        }
+        
     }
     
     // słowniczek - kind na wyświetlany kind
