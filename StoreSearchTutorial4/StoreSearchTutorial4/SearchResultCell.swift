@@ -69,6 +69,14 @@ class SearchResultCell: UITableViewCell {
         default: return kind
         }
     }
+    
+    // skrolujac table view moze byc sytuacja ze cellka moze sciagac obrazek pomimo ze juz w jego miejsce ma sie wrzucic inny obrazek nowszy, dlatego trzeba w takiej sytuacji cancelowac sciaganie pierwszego obrazka ta czynnosc robi prepare for reuse
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        downloadTask?.cancel()
+        downloadTask = nil
+    }
 
 
 }
