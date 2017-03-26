@@ -15,6 +15,14 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+
+//MARK: - Actions
+    
+    @IBAction func segmentChanged(_ sender: UISegmentedControl) {
+        performSearch()
+    }
+    
     
 //MARK: - Variables and constants
     
@@ -31,8 +39,8 @@ class SearchViewController: UIViewController {
         tableView.rowHeight = 80
         //ukrywanie klawiatury przy swipie
         tableView.keyboardDismissMode = .interactive
-        // żeby wydobyć rowsy ukryte pod search barem
-        tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+        // żeby wydobyć rowsy ukryte pod search barem i segment controlerem
+        tableView.contentInset = UIEdgeInsets(top: 108, left: 0, bottom: 0, right: 0)
         //klawiatura sie pojawia na starcie
         searchBar.becomeFirstResponder()
         
@@ -76,12 +84,21 @@ class SearchViewController: UIViewController {
     
 //MARK: - RANDOM METHODS
     
-    func iTunesURL(searchText: String) -> URL {
+    func iTunesURL(searchText: String, category: Int) -> URL {
+        
+        //przypisanie do Segment Control indexów wrapperTypes z JSON
+        let entityName: String
+        switch category {
+        case 1: entityName = "musicTrack"
+        case 2: entityName = "software"
+        case 3: entityName = "ebook"
+        default: entityName = ""
+        }
         //poniższa linijka jest po zeby było można spacje wyszukiwać
         let escapedSearchText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         
         //&limit=200 ustawia z default limit = 50 na 200 wyników
-        let urlString = String(format: "https://itunes.apple.com/search?term=%@&limit=200", escapedSearchText)
+        let urlString = String(format: "https://itunes.apple.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
         let url = URL(string: urlString)
         return url!
     }
@@ -253,13 +270,17 @@ class SearchViewController: UIViewController {
         default: return kind
         }
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        performSearch()
+    }
 
 
 }
 
 //MARK: - SearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func performSearch() {
         if !searchBar.text!.isEmpty {
             searchBar.resignFirstResponder()
             
@@ -270,8 +291,8 @@ extension SearchViewController: UISearchBarDelegate {
             hasSearched = true
             searchResults = []
             
-        
-            let url = iTunesURL(searchText: searchBar.text!)
+            // w celu stworzenia url w funkcje iTunesURL wrzucamy wartosci czyli wyszukiwany text i index segmentu ktory zostaje w funkcji iTunesURl przelozony na string okreslajacy kategorie
+            let url = self.iTunesURL(searchText: searchBar.text!, category: segmentedControl.selectedSegmentIndex)
             
             let session = URLSession.shared
             
