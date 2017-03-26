@@ -252,25 +252,6 @@ class SearchViewController: UIViewController {
         return searchResult
     }
 
-
-    
-    // słowniczek - kind na wyświetlany kind
-    func kindForDisplay(_ kind: String) -> String {
-        switch kind {
-            case "album": return "Album"
-            case "audiobook": return "AudioBook"
-            case "book": return "Book"
-            case "ebook": return "E-Book"
-            case "feature-movie": return "Movie"
-            case "music-vide": return "Music Vide"
-            case "podcast": return "Podcast"
-            case "software": return "App"
-            case "song": return "Song"
-            case "tv-episode": return "TV Episode"
-        default: return kind
-        }
-    }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         performSearch()
     }
@@ -378,13 +359,7 @@ extension SearchViewController: UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCellIdentifiers.searchResultCell, for: indexPath) as! SearchResultCell
             let searchResult = searchResults[indexPath.row]
-            cell.nameLabel!.text = searchResult.name
-            //jakby nie bylo w JSON artisName to Unknown jak będzie to artistName i kind
-            if searchResult.artistName.isEmpty {
-                cell.artistNameLabel.text! = "Unknown"
-            } else {
-                cell.artistNameLabel.text! = String(format: "%@ (%@)", searchResult.artistName, kindForDisplay(searchResult.kind))
-            }
+            cell.configure(for: searchResult)
             return cell
         }
     }
