@@ -76,11 +76,50 @@
                         <outlet property="searchBar" destination="7B3-64-6Od" id="bZ3-i7-to5"/>
                         <outlet property="segmentedControl" destination="JjP-xn-BWp" id="Bcn-Ku-PMY"/>
                         <outlet property="tableView" destination="0hn-qd-elK" id="arj-57-c2l"/>
+                        <segue destination="PUn-mm-KqJ" kind="presentation" identifier="ShowDetail" id="ufD-St-KfL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="24.375" y="32.74647887323944"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="2Vq-Uk-WDf">
+            <objects>
+                <viewController id="PUn-mm-KqJ" customClass="DetailViewController" customModule="StoreSearchTutorial4" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="R4v-JI-62p"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ipi-fX-Yas"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Ay-Yx-zbG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d0A-HL-1UT" userLabel="Pop-up View">
+                                <rect key="frame" x="40" y="164" width="240" height="240"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oya-iT-akQ" userLabel="Close Button">
+                                        <rect key="frame" x="3" y="0.0" width="15" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="CloseButton"/>
+                                        <connections>
+                                            <action selector="close:" destination="PUn-mm-KqJ" eventType="touchUpInside" id="5wV-dG-uzx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.95193965517241375" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.4964439655172414" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dyh-1y-kdl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="778" y="31"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="CloseButton" width="15" height="15"/>
+    </resources>
 </document>

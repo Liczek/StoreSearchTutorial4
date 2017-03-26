@@ -63,6 +63,8 @@ class SearchViewController: UIViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        //jako że nie można zrobić segue bezpośrednio z cellki bo cellka jest reusable a nie static jak we wcześniejszych tutorialach, to trzeba pociągnąć ją z całego View i zrobić perform segue przy tapie na row
+        performSegue(withIdentifier: "ShowDetail", sender: indexPath)
     }
     
     // uniemożliwia wybranie wiersza gdy searchResults.count zwraca 0 po wyszukaniu
