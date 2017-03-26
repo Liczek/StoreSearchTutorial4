@@ -16,6 +16,7 @@
 		C85666921E831FFD00DC4F90 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85666911E831FFD00DC4F90 /* SearchResult.swift */; };
 		C85666941E83337600DC4F90 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85666931E83337600DC4F90 /* SearchResultCell.xib */; };
 		C85666961E83386F00DC4F90 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85666951E83386F00DC4F90 /* SearchResultCell.swift */; };
+		C8706A911E88480900B37BE8 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8706A901E88480900B37BE8 /* UIImageView+DownloadImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		C85666911E831FFD00DC4F90 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		C85666931E83337600DC4F90 /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		C85666951E83386F00DC4F90 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		C8706A901E88480900B37BE8 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				C856667F1E8308E700DC4F90 /* AppDelegate.swift */,
 				C85666811E8308E700DC4F90 /* SearchViewController.swift */,
 				C85666951E83386F00DC4F90 /* SearchResultCell.swift */,
+				C8706A901E88480900B37BE8 /* UIImageView+DownloadImage.swift */,
 				C85666911E831FFD00DC4F90 /* SearchResult.swift */,
 				C85666831E8308E800DC4F90 /* Main.storyboard */,
 				C85666931E83337600DC4F90 /* SearchResultCell.xib */,
@@ -155,6 +158,7 @@
 				C85666921E831FFD00DC4F90 /* SearchResult.swift in Sources */,
 				C85666961E83386F00DC4F90 /* SearchResultCell.swift in Sources */,
 				C85666801E8308E700DC4F90 /* AppDelegate.swift in Sources */,
+				C8706A911E88480900B37BE8 /* UIImageView+DownloadImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
