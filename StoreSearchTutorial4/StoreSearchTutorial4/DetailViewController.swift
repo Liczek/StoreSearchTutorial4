@@ -11,6 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     
     var searchResult: SearchResult!
+    var downloadTask: URLSessionDownloadTask?
     
 //MARK: - OUTLETS
     
@@ -103,6 +104,15 @@ class DetailViewController: UIViewController {
         }
         
         priceButton.setTitle(priceText, for: .normal)
+        
+        if let largeURL = URL(string: searchResult.artworkLargeURL) {
+            downloadTask = artworkImageView.loadImage(url: largeURL)
+        }
+    }
+    
+    deinit {
+        print("deinit \(self)")
+        downloadTask?.cancel()
     }
 
 }

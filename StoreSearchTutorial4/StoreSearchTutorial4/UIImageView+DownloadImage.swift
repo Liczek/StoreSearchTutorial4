@@ -12,7 +12,7 @@ import UIKit
 extension UIImageView {
     func loadImage(url: URL) -> URLSessionDownloadTask {
         let session = URLSession.shared
-        // downloadTask sciaga pliki na dysk zamiast trzymac w pamięci, url to sciezka do miejsca na dysku gdzie sa zapisane, majac url mozna load Data i zrobic z niego obrazy UIImage
+        // downloadTask sciaga pliki na dysk zamiast trzymac w pamięci, url to sciezka do miejsca na dysku gdzie sa zapisane, majac url mozna load Data i zrobic z niego obrazy UIImage  [weak self] jest istotny bo rozbija ownership cycle czyli zależnść która nie pozwala zabić obiektu 2x strong
         let downloadTask = session.downloadTask(with: url, completionHandler: { [weak self] url, response, error in
         
             if error == nil, let url = url,
