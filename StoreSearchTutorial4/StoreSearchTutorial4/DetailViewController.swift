@@ -10,6 +10,8 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    var searchResult: SearchResult!
+    
 //MARK: - OUTLETS
     
     @IBOutlet weak var popupView: UIView!
@@ -38,6 +40,10 @@ class DetailViewController: UIViewController {
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
         
+        if searchResult != nil {
+            updateUI()
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +67,21 @@ class DetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+//MARK: - Methods
+    
+    func updateUI() {
+        nameLabel.text = searchResult.name
+        
+        if searchResult.artistName.isEmpty {
+            artistNameLabel.text = "Unknown"
+        } else {
+            artistNameLabel.text = searchResult.artistName
+        }
+        
+        kindLabel.text = searchResult.kind
+        genreLabel.text = searchResult.genre
+    }
 
 }
 
