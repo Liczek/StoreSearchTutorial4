@@ -44,7 +44,7 @@ class SearchResultCell: UITableViewCell {
         if searchResult.artistName.isEmpty {
             artistNameLabel.text = "Unknown"
         } else {
-            artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, kindForDisplay(searchResult.kind))
+            artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, searchResult.kindForDisplay())
         }
         
         // załadowanie obrazka do UIImageView
@@ -53,23 +53,6 @@ class SearchResultCell: UITableViewCell {
             downloadTask = artworkImageView.loadImage(url: smallURL)
         }
         
-    }
-    
-    // słowniczek - kind na wyświetlany kind
-    func kindForDisplay(_ kind: String) -> String {
-        switch kind {
-        case "album": return "Album"
-        case "audiobook": return "AudioBook"
-        case "book": return "Book"
-        case "ebook": return "E-Book"
-        case "feature-movie": return "Movie"
-        case "music-vide": return "Music Vide"
-        case "podcast": return "Podcast"
-        case "software": return "App"
-        case "song": return "Song"
-        case "tv-episode": return "TV Episode"
-        default: return kind
-        }
     }
     
     // skrolujac table view moze byc sytuacja ze cellka moze sciagac obrazek pomimo ze juz w jego miejsce ma sie wrzucic inny obrazek nowszy, dlatego trzeba w takiej sytuacji cancelowac sciaganie pierwszego obrazka ta czynnosc robi prepare for reuse

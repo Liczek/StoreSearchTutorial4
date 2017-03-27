@@ -44,6 +44,7 @@ class DetailViewController: UIViewController {
             updateUI()
         }
         
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,7 +80,7 @@ class DetailViewController: UIViewController {
             artistNameLabel.text = searchResult.artistName
         }
         
-        kindLabel.text = searchResult.kind
+        kindLabel.text = searchResult.kindForDisplay()
         genreLabel.text = searchResult.genre
     }
 
