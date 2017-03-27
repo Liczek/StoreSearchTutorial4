@@ -13,4 +13,14 @@ class DimmingPresentationController: UIPresentationController {
     override var shouldRemovePresentersView: Bool {
         return false
     }
+    
+    lazy var dimmingView = GradientView(frame: CGRect.zero)
+    
+    //presentationTransitionWIllBegin method is invoked kiedy nowy view controller ma sie pojawić
+    override func presentationTransitionWillBegin() {
+        // tworzymy nowy view controller tak duży jak containerView
+        dimmingView.frame = containerView!.bounds
+        //wrzucamy ten widok za wszystkie inne poprzez okreslenie indexu 0
+        containerView!.insertSubview(dimmingView, at: 0)
+    }
 }
