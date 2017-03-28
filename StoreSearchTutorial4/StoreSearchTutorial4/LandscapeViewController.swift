@@ -16,7 +16,8 @@ class LandscapeViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     
     
-
+//MARK: - VIEWS
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +32,17 @@ class LandscapeViewController: UIViewController {
         scrollView.removeConstraints(scrollView.constraints)
         scrollView.translatesAutoresizingMaskIntoConstraints = true
         
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        scrollView.frame = view.bounds
+        
+        pageControl.frame = CGRect(x: 0,
+                                   y: view.frame.size.height - pageControl.frame.size.height,
+                                   width: view.frame.size.width,
+                                   height: pageControl.frame.size.height)
     }
 
     override func didReceiveMemoryWarning() {
