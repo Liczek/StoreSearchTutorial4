@@ -10,6 +10,9 @@ import UIKit
 
 class LandscapeViewController: UIViewController {
     
+    var searchResults = [SearchResult]()
+    private var firstTime = true
+    
 //MARK: - Outlets
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -22,7 +25,6 @@ class LandscapeViewController: UIViewController {
         super.viewDidLoad()
 
         //Wyłączenie Auto Layout w tym VIEW
-        
         view.removeConstraints(view.constraints)
         view.translatesAutoresizingMaskIntoConstraints = true
         
@@ -32,6 +34,10 @@ class LandscapeViewController: UIViewController {
         scrollView.removeConstraints(scrollView.constraints)
         scrollView.translatesAutoresizingMaskIntoConstraints = true
         
+        // ustawienie tła z obrazka ustawia obrazek jeden przy drugim jako kolor
+        scrollView.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
+        // bardzo ważne żeby to ustawić określa to rozmiar widoku w scrollView dzieki czemu jest co skrolowac
+        scrollView.contentSize = CGSize(width: 1000, height: 1000)
     }
     
     override func viewWillLayoutSubviews() {

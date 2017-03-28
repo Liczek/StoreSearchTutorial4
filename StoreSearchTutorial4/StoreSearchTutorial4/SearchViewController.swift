@@ -139,6 +139,8 @@ class SearchViewController: UIViewController {
         landscapeViewController = storyboard!.instantiateViewController(withIdentifier: "LandscapeViewController") as? LandscapeViewController
         
         if let controller = landscapeViewController {
+            // przekazanie searchResults arrey do LandscapeViewController
+            controller.searchResults = searchResults
             controller.view.frame = view.bounds
             controller.view.alpha = 0
             
