@@ -32,7 +32,9 @@ class SearchViewController: UIViewController {
     
     var dataTask: URLSessionDataTask?
     
+    var landscapeViewController: LandscapeViewController?
     
+//MARK: - Views
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +54,18 @@ class SearchViewController: UIViewController {
         tableView.register(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
         cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        
+        // WYJAŚNIENIE strona 171 bardzo istotne
+        switch newCollection.verticalSizeClass {
+        case .compact:
+            showLandscape(with: coordinator)
+        case .regular, .unspecified:
+            hideLandscape(with: coordinator)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,6 +128,26 @@ class SearchViewController: UIViewController {
         let urlString = String(format: "https://itunes.apple.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
         let url = URL(string: urlString)
         return url!
+    }
+    
+//MARK: - Landscape Mode
+    
+    func showLandscape(with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        guard landscapeViewController == nil else { return }
+        
+        landscapeViewController = storyboard!.instantiateViewController(withIdentifier: "LandscapeViewController") as? LandscapeViewController
+        
+        if let controller = landscapeViewController {
+            controller.view.frame = view.bounds
+            view.addSubview(controller.view)
+            addChildViewController(controller)
+            controller.didMove(toParentViewController: self)
+        }
+    }
+    
+    func hideLandscape(with coordinator: UIViewControllerTransitionCoordinator) {
+        
     }
     
 
