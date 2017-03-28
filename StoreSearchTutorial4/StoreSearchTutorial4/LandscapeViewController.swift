@@ -36,8 +36,7 @@ class LandscapeViewController: UIViewController {
         
         // ustawienie tła z obrazka ustawia obrazek jeden przy drugim jako kolor
         scrollView.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
-        // bardzo ważne żeby to ustawić określa to rozmiar widoku w scrollView dzieki czemu jest co skrolowac
-        scrollView.contentSize = CGSize(width: 1000, height: 1000)
+    
     }
     
     override func viewWillLayoutSubviews() {
