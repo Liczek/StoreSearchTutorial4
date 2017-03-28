@@ -22,5 +22,23 @@ class DimmingPresentationController: UIPresentationController {
         dimmingView.frame = containerView!.bounds
         //wrzucamy ten widok za wszystkie inne poprzez okreslenie indexu 0
         containerView!.insertSubview(dimmingView, at: 0)
+        
+        // gradient z alpha 0 zmienia sie w alpha 1
+        dimmingView.alpha = 0
+                                        // transitionCoordinator powinien byc zawsze przy animacjach gdzie pojawia sie nowy view itp kontorluje on gładkie animacje - płynne, animacje powinny być zawsze umieszczone w alongsideTransition
+        if let coordinator = presentedViewController.transitionCoordinator {
+            coordinator.animate(alongsideTransition: { _ in
+            self.dimmingView.alpha = 1
+            }, completion: nil)
+        }
+        
+    }
+    
+    override func dismissalTransitionWillBegin() {
+        if let coordinator = presentedViewController.transitionCoordinator {
+            coordinator.animate(alongsideTransition: { _ in
+                    self.dimmingView.alpha = 0
+            }, completion: nil)
+        }
     }
 }
