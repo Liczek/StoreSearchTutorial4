@@ -120,9 +120,8 @@ class LandscapeViewController: UIViewController {
         
         for (index, searchResult) in searchResults.enumerated() {
             
-            let button = UIButton(type: .system)
-            button.backgroundColor = UIColor.white
-            button.setTitle("\(index)", for: .normal)
+            let button = UIButton(type: .custom)
+            button.setBackgroundImage(UIImage(named: "LandscapeButton"), for: .normal)
             
             button.frame = CGRect(x: x + paddingHorz,
                                   y: marginY + CGFloat(row)*itemHeight + paddinfVert,
@@ -152,6 +151,8 @@ class LandscapeViewController: UIViewController {
         print("Number of pages: \(numPages)")
         
     }
+    
+
     
     
     
