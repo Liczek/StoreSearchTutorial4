@@ -36,6 +36,10 @@ class LandscapeViewController: UIViewController {
         
         // ustawienie tła z obrazka ustawia obrazek jeden przy drugim jako kolor
         scrollView.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
+        
+        // podział scrollView na strony i określenie liczby stron
+        scrollView.isPagingEnabled = true
+        pageControl.numberOfPages = 0
     
     }
     
@@ -58,6 +62,12 @@ class LandscapeViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+//MARK: - Actions
+    
+    @IBAction func pageChanged(_ sender: UIPageControl) {
+        scrollView.contentOffset = CGPoint(x: scrollView.bounds.size.width * CGFloat(sender.currentPage), y: 0)
     }
     
 //MARK: - METHODS
@@ -131,9 +141,14 @@ class LandscapeViewController: UIViewController {
         
         scrollView.contentSize = CGSize(width: CGFloat(numPages)*scrollViewWidth,
                                         height: scrollView.bounds.size.height)
+        
+        pageControl.numberOfPages = numPages
+        pageControl.currentPage = 0
         print("Number of pages: \(numPages)")
         
     }
+    
+    
     
 
     /*
@@ -150,4 +165,13 @@ class LandscapeViewController: UIViewController {
         print("deinit \(self)")
     }
     
+}
+
+extension LandscapeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = scrollView.bounds.size.width
+        //contentOffset.x określa index strony chyba liczone od 1
+        let curentPage = Int((scrollView.contentOffset.x + width/2)/width)
+        pageControl.currentPage = curentPage
+    }
 }
