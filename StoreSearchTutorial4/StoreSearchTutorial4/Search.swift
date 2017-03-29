@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+//closure  aby search moglo mowic do searchVC ze skonczylo szukac,
+
+typealias SearchComplete = (Bool) -> Void
+
 class Search {
     var searchResults = [SearchResult]()
     var hasSearched = false
@@ -19,7 +23,7 @@ class Search {
     
 //MARK: - METHODS
     
-    func performSearch(for text: String, category: Int) {
+    func performSearch(for text: String, category: Int, completion: @escaping SearchComplete) {
      if !text.isEmpty {
         dataTask?.cancel()
         isLoading = true
@@ -30,17 +34,16 @@ class Search {
      let url = iTunesURL(searchText: text, category: category)
      
      let session = URLSession.shared
-     // opcja 1
-     //            let dataTask = session.dataTask(with: url, completionHandler: {
-     //                (data: Data?, response: URLResponse? , error: Error?) in
-     // opcja 2
-        dataTask = session.dataTask(with: url, completionHandler: {
-     data, response, error in
      
-     if let error = error as? NSError, error.code == -999 {
-     //return czyli nie wykonujemy searcha zostaje on anulowany
-     return
-     }
+        dataTask = session.dataTask(with: url, completionHandler: {
+            data, response, error in
+     
+            var success = false
+            
+            if let error = error as? NSError, error.code == -999 {
+                //return czyli nie wykonujemy searcha zostaje on anulowany
+                return
+            }
         
      if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200,
         let jsonData = data,
@@ -50,13 +53,19 @@ class Search {
      
                print ("Success!")
                self.isLoading = false
-               return
+                //sukces dlatego true
+               success = true
         }
-     
-        print("Failure! \(response)")
-        self.hasSearched = false
-        self.isLoading = false
-       
+            if !success {
+                print("Failure! \(response)")
+                // porażka dlatego nie zmianiamy success na true tylko pozostaje false
+                self.hasSearched = false
+                self.isLoading = false
+            }
+            // w sytuacji sukcesu zwracamy completion true, w sytuacji niepowodzenia pozostawiamy success jako false
+            DispatchQueue.main.async {
+                completion(success)
+            }
         })
         dataTask?.resume()
      
