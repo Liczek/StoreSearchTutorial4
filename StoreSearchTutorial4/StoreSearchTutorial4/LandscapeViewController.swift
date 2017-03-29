@@ -10,7 +10,7 @@ import UIKit
 
 class LandscapeViewController: UIViewController {
     
-    var searchResults = [SearchResult]()
+    var search: Search!
     private var firstTime = true
     //tworzymy arreyke wszystklich downloadTasków aby byłomożna je w razie potrzeby szybko cancelować w deinit jeśli nie będziemy jednak już potrzebować ściągać obrazków z serwera
     private var downloadTasks = [URLSessionDownloadTask]()
@@ -57,7 +57,7 @@ class LandscapeViewController: UIViewController {
         
         if firstTime {
             firstTime = false
-            tileButtons(searchResults)
+            tileButtons(search.searchResults)
         }
     }
 
