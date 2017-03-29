@@ -20,7 +20,47 @@ class Search {
 //MARK: - METHODS
     
     func performSearch(for text: String, category: Int) {
-        print("Searching...")
+     if !text.isEmpty {
+        dataTask?.cancel()
+        isLoading = true
+        hasSearched = true
+        searchResults = []
+        
+     // w celu stworzenia url w funkcje iTunesURL wrzucamy wartosci czyli wyszukiwany text i index segmentu ktory zostaje w funkcji iTunesURl przelozony na string okreslajacy kategorie
+     let url = iTunesURL(searchText: text, category: category)
+     
+     let session = URLSession.shared
+     // opcja 1
+     //            let dataTask = session.dataTask(with: url, completionHandler: {
+     //                (data: Data?, response: URLResponse? , error: Error?) in
+     // opcja 2
+        dataTask = session.dataTask(with: url, completionHandler: {
+     data, response, error in
+     
+     if let error = error as? NSError, error.code == -999 {
+     //return czyli nie wykonujemy searcha zostaje on anulowany
+     return
+     }
+        
+     if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200,
+        let jsonData = data,
+        let jsonDictionary = self.parse(json: jsonData) {
+            self.searchResults = self.parse(dictionary: jsonDictionary)
+            self.searchResults.sort(by: <)
+     
+               print ("Success!")
+               self.isLoading = false
+               return
+        }
+     
+        print("Failure! \(response)")
+        self.hasSearched = false
+        self.isLoading = false
+       
+        })
+        dataTask?.resume()
+     
+        }
     }
     
     private func iTunesURL(searchText: String, category: Int) -> URL {

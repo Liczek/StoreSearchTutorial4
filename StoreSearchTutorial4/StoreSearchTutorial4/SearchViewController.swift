@@ -172,61 +172,6 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
-    /*func performSearch() {
-        if !searchBar.text!.isEmpty {
-            searchBar.resignFirstResponder()
-            
-            dataTask?.cancel()
-            isLoading = true
-            tableView.reloadData()
-            
-            hasSearched = true
-            searchResults = []
-            
-            // w celu stworzenia url w funkcje iTunesURL wrzucamy wartosci czyli wyszukiwany text i index segmentu ktory zostaje w funkcji iTunesURl przelozony na string okreslajacy kategorie
-            let url = self.iTunesURL(searchText: searchBar.text!, category: segmentedControl.selectedSegmentIndex)
-            
-            let session = URLSession.shared
-            
-            // opcja 1
-//            let dataTask = session.dataTask(with: url, completionHandler: {
-//                (data: Data?, response: URLResponse? , error: Error?) in
-            // opcja 2
-            dataTask = session.dataTask(with: url) {
-                data, response, error in
-                print("On main thread?" + (Thread.current.isMainThread ? "Yes" : "No"))
-                if let error = error as? NSError, error.code == -999 {
-                    print("Failure! \(error)")
-                    return
-                } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                    if let data = data, let jsonDictionary = self.parse(json: data) {
-                        self.searchResults = self.parse(dictionary: jsonDictionary)
-                        self.searchResults.sort(by: <)
-                        
-                        DispatchQueue.main.async {
-                            self.isLoading = false
-                            self.tableView.reloadData()
-                        }
-                        return
-                    }
-                } else {
-                    print("Failure! \(response!)")
-                }
-                
-                DispatchQueue.main.async {
-                    self.hasSearched = false
-                    self.isLoading = false
-                    self.tableView.reloadData()
-                    self.showNetworkError()
-                }
-                
-            }
-            
-            dataTask?.resume()
-            
-        }
-    }*/
-    
     
     //UIBarPositionDelegate ma możliwość połączenia się z innymi obiektami w tym wypadku z UISearchBarem
     func position(for bar: UIBarPositioning) -> UIBarPosition {
