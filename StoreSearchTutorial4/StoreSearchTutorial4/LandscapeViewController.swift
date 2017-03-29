@@ -12,6 +12,8 @@ class LandscapeViewController: UIViewController {
     
     var searchResults = [SearchResult]()
     private var firstTime = true
+    //tworzymy arreyke wszystklich downloadTasków aby byłomożna je w razie potrzeby szybko cancelować w deinit jeśli nie będziemy jednak już potrzebować ściągać obrazków z serwera
+    private var downloadTasks = [URLSessionDownloadTask]()
     
 //MARK: - Outlets
     
@@ -118,7 +120,7 @@ class LandscapeViewController: UIViewController {
         var column = 0
         var x = marginX
         
-        for (index, searchResult) in searchResults.enumerated() {
+        for (_, searchResult) in searchResults.enumerated() {
             
             let button = UIButton(type: .custom)
             button.setBackgroundImage(UIImage(named: "LandscapeButton"), for: .normal)
@@ -128,6 +130,9 @@ class LandscapeViewController: UIViewController {
                                   width: buttonWidth,
                                   height: buttonHeight)
             scrollView.addSubview(button)
+            //dodanie ściągniętego obrazka
+            downloadImage(for: searchResult, andPlaceOn: button)
+            
             // buttony ida w kolumnach od gory do dołu, aż do momentu row == rowsPerPage wtedy dodaje sie += 1 column
             row += 1
             if row == rowsPerPage {
@@ -152,6 +157,26 @@ class LandscapeViewController: UIViewController {
         
     }
     
+    private func downloadImage(for searchResult: SearchResult, andPlaceOn button: UIButton) {
+        if let url = URL(string: searchResult.artworkSmallURL) {
+            let downloadTask = URLSession.shared.downloadTask(with: url) {
+                [weak button] url, response, error in
+                if error == nil, let url = url,
+                                 let data = try? Data(contentsOf: url),
+                                 let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        if let button = button {
+                            button.setImage(image, for: .normal)
+                        }
+                    }
+                }
+            }
+            downloadTask.resume()
+            //dodajemy kolejno wszystkie zadania ściągnięcia obrazka do arreyki downloadTasków
+            downloadTasks.append(downloadTask)
+        }
+    }
+    
 
     
     
@@ -166,9 +191,14 @@ class LandscapeViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    //
     deinit {
         print("deinit \(self)")
+        // w momencie deallokacji View który polecił ściągnięcie obrazków (np obrócenie obrazu w portret view) deint likwiduje wszsytkie taski z arrey donloadTaskS jeden po drugim
+        for task in downloadTasks {
+            task.cancel()
+        }
     }
     
 }
