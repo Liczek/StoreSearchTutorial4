@@ -50,6 +50,10 @@ class Search {
      if !text.isEmpty {
         dataTask?.cancel()
         
+        
+        //Mała ikonka Loadingu na status BAR!! - Włączenie
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         state = .loading
         
      // w celu stworzenia url w funkcje iTunesURL wrzucamy wartosci czyli wyszukiwany text i index segmentu ktory zostaje w funkcji iTunesURl przelozony na string okreslajacy kategorie
@@ -84,6 +88,8 @@ class Search {
         }
         // w sytuacji sukcesu zwracamy completion true, w sytuacji niepowodzenia pozostawiamy success jako false
         DispatchQueue.main.async {
+            //Mała ikonka Loadingu na status BAR!! - Wyłączenie
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             completion(success)
             }
         })
