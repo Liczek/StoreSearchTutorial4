@@ -14,9 +14,15 @@ import UIKit
 typealias SearchComplete = (Bool) -> Void
 
 class Search {
-    var searchResults = [SearchResult]()
-    var hasSearched = false
-    var isLoading = false
+    
+    enum State {
+        case notSearchedYet
+        case loading
+        case noResults
+        case results([SearchResult])
+    }
+    // to jest prywatny obiekt ale można o niego zapytać a dokłądniej o jego state aktualny "reading is OK, but assigning new values to this variable may only happen inside the Search class"
+    private(set) var state: State = .notSearchedYet
     
     private var dataTask: URLSessionDataTask? = nil
     
@@ -43,9 +49,8 @@ class Search {
     func performSearch(for text: String, category: Category, completion: @escaping SearchComplete) {
      if !text.isEmpty {
         dataTask?.cancel()
-        isLoading = true
-        hasSearched = true
-        searchResults = []
+        
+        state = .loading
         
      // w celu stworzenia url w funkcje iTunesURL wrzucamy wartosci czyli wyszukiwany text i index segmentu ktory zostaje w funkcji iTunesURl przelozony na string okreslajacy kategorie
      let url = iTunesURL(searchText: text, category: category)
@@ -54,7 +59,8 @@ class Search {
      
         dataTask = session.dataTask(with: url, completionHandler: {
             data, response, error in
-     
+            
+            self.state = .notSearchedYet
             var success = false
             
             if let error = error as? NSError, error.code == -999 {
@@ -65,27 +71,23 @@ class Search {
      if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200,
         let jsonData = data,
         let jsonDictionary = self.parse(json: jsonData) {
-            self.searchResults = self.parse(dictionary: jsonDictionary)
-            self.searchResults.sort(by: <)
-     
-               print ("Success!")
-               self.isLoading = false
-                //sukces dlatego true
-               success = true
+        
+        var searchResults = self.parse(dictionary: jsonDictionary)
+        if searchResults.isEmpty {
+            self.state = .noResults
+        } else {
+            searchResults.sort(by: <)
+            self.state = .results(searchResults)
         }
-            if !success {
-                print("Failure! \(response)")
-                // porażka dlatego nie zmianiamy success na true tylko pozostaje false
-                self.hasSearched = false
-                self.isLoading = false
-            }
-            // w sytuacji sukcesu zwracamy completion true, w sytuacji niepowodzenia pozostawiamy success jako false
-            DispatchQueue.main.async {
-                completion(success)
+        success = true
+        
+        }
+        // w sytuacji sukcesu zwracamy completion true, w sytuacji niepowodzenia pozostawiamy success jako false
+        DispatchQueue.main.async {
+            completion(success)
             }
         })
-        dataTask?.resume()
-     
+        dataTask?.resume()     
         }
     }
     
