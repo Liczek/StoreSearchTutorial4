@@ -178,10 +178,14 @@ extension SearchViewController: UISearchBarDelegate {
     func performSearch() {
         if let category = Search.Category(rawValue: segmentedControl.selectedSegmentIndex) {
         search.performSearch(for: searchBar.text!, category: category, completion: { success in
+            //sleep(Int) wrzuca aplikacje w sen na okreslony czas super do testowania
+            sleep(5)
             if !success {
                 self.showNetworkError()
             }
             self.tableView.reloadData()
+            // jeśli otrzymamy success w wyszukiwaniu to robimy reload SearchViewController.tableView lub jeśli w międzyczasie obruciliśmy ekran i mamy LandscapeVViewControler dlatego jest ? implikujemy searchResultsReceived który tworzy buttony
+            self.landscapeViewController?.searchResultsReceived()
         })        
         tableView.reloadData()
         searchBar.resignFirstResponder()
