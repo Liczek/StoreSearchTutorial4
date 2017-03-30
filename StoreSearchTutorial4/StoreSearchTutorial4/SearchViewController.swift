@@ -153,6 +153,10 @@ class SearchViewController: UIViewController {
             controller.willMove(toParentViewController: nil)
             
             coordinator.animate(alongsideTransition: { _ in
+                //ten if statement sprawdza, czy jest wyświetlony dodatkowy ViewControlle chodzi tu o DetailVC jeśli tak to go dissmisuje
+                if self.presentedViewController != nil {
+                    self.dismiss(animated: true, completion: nil)
+                }
             controller.view.alpha = 0
             }, completion: { _ in
                 controller.view.removeFromSuperview()
