@@ -78,10 +78,13 @@ class SearchViewController: UIViewController {
     }
     
     // uniemożliwia wybranie wiersza gdy searchResults.count zwraca 0 po wyszukaniu
+    // tapnięcie na row jest możliwe tylko jeśli state.results
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if search.searchResults.count == 0 || search.isLoading {
+        switch search.state {
+        case .notSearchedYet, .loading, .noResults:
             return nil
-        } else {
+            // nie trzeba przypisywac wartości search.result do niczego bo tu ta warość nie jest nam potrzebna
+        case .results:
             return indexPath
         }
     }
@@ -90,10 +93,17 @@ class SearchViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDetail" {
-            let detailViewController = segue.destination as! DetailViewController
-            let indexPath = sender as! IndexPath
-            let searchResult = search.searchResults[indexPath.row]
-            detailViewController.searchResult = searchResult
+            
+            //tu interesuje nas tylko case .results żeby nie byłotrzeba wypisywać wszystkich case to używamy if case statement
+            
+            if case .results(let list) = search.state {
+                let detailViewController = segue.destination as! DetailViewController
+                // tableViews didSelectRowFor perform segue
+                let indexPath = sender as! IndexPath
+                let searchResult = list[indexPath.row]
+                // poprzez indexPath.row ustalamy konkretny SsearchResult i implikujemy go do searchResult w DetailViewController
+                detailViewController.searchResult = searchResult
+            }
         }
     }
     
