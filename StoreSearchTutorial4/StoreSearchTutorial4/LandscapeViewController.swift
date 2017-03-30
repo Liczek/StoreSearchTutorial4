@@ -132,7 +132,7 @@ class LandscapeViewController: UIViewController {
         var column = 0
         var x = marginX
         
-        for (_, searchResult) in searchResults.enumerated() {
+        for (index, searchResult) in searchResults.enumerated() {
             
             let button = UIButton(type: .custom)
             button.setBackgroundImage(UIImage(named: "LandscapeButton"), for: .normal)
@@ -142,6 +142,10 @@ class LandscapeViewController: UIViewController {
                                   width: buttonWidth,
                                   height: buttonHeight)
             scrollView.addSubview(button)
+            
+            button.tag = 2000 + index
+            button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+            
             //dodanie ściągniętego obrazka
             downloadImage(for: searchResult, andPlaceOn: button)
             
@@ -154,6 +158,11 @@ class LandscapeViewController: UIViewController {
                     column = 0; x += marginX * 2
                 }
             }
+        }
+        
+        //jako że buttony tworzyliśmy codem to segue tez musimy zorbić z programu czyli najpierw perform a nastepnie prepare for segue
+        func buttonPressed(_ sender: UIButton) {
+            performSegue(withIdentifier: "ShowDetail", sender: sender)
         }
         
         let buttonsPerPage = columnsPerPage * rowsPerPage
@@ -258,6 +267,19 @@ class LandscapeViewController: UIViewController {
         // w momencie deallokacji View który polecił ściągnięcie obrazków (np obrócenie obrazu w portret view) deint likwiduje wszsytkie taski z arrey donloadTaskS jeden po drugim
         for task in downloadTasks {
             task.cancel()
+        }
+    }
+    
+//MARK: - SEGUE
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDetail" {
+            if case .results(let list) = search.state {
+                let detailViewController = segue.destination as! DetailViewController
+                //zamiast otrzymania indexPath poprostu wyliczamy go sobie z button.tag pomniejszonego o wcześniej dodane 2000, teraz pozostało dodanie segue w storyboardzie
+                let searchResult = list[(sender as! UIButton).tag - 2000]
+                detailViewController.searchResult = searchResult
+            }
         }
     }
     
