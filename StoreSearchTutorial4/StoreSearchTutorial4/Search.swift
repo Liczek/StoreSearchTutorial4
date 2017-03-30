@@ -20,10 +20,27 @@ class Search {
     
     private var dataTask: URLSessionDataTask? = nil
     
+//MARK: - Enums
+    
+    enum Category: Int {
+        case all = 0
+        case music = 1
+        case software = 2
+        case ebooks = 3
+        
+        var entityName: String {
+            switch self {
+            case .all: return ""
+            case .music: return "musicTrack"
+            case .software: return "software"
+            case .ebooks: return "ebook"
+            }
+        }
+    }
     
 //MARK: - METHODS
     
-    func performSearch(for text: String, category: Int, completion: @escaping SearchComplete) {
+    func performSearch(for text: String, category: Category, completion: @escaping SearchComplete) {
      if !text.isEmpty {
         dataTask?.cancel()
         isLoading = true
@@ -72,16 +89,10 @@ class Search {
         }
     }
     
-    private func iTunesURL(searchText: String, category: Int) -> URL {
+    private func iTunesURL(searchText: String, category: Category) -> URL {
         
         //przypisanie do Segment Control indexów wrapperTypes z JSON
-        let entityName: String
-        switch category {
-        case 1: entityName = "musicTrack"
-        case 2: entityName = "software"
-        case 3: entityName = "ebook"
-        default: entityName = ""
-        }
+        let entityName = category.entityName
         //poniższa linijka jest po zeby było można spacje wyszukiwać
         let escapedSearchText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         
