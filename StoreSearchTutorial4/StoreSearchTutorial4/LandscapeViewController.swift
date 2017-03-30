@@ -160,10 +160,7 @@ class LandscapeViewController: UIViewController {
             }
         }
         
-        //jako że buttony tworzyliśmy codem to segue tez musimy zorbić z programu czyli najpierw perform a nastepnie prepare for segue
-        func buttonPressed(_ sender: UIButton) {
-            performSegue(withIdentifier: "ShowDetail", sender: sender)
-        }
+        
         
         let buttonsPerPage = columnsPerPage * rowsPerPage
         // dlatego +1 bo jak searchResults.count bedzie mniejszy niz buttons per Page to daloby wynik 0 stron
@@ -176,6 +173,11 @@ class LandscapeViewController: UIViewController {
         pageControl.currentPage = 0
         print("Number of pages: \(numPages)")
         
+    }
+    
+    //jako że buttony tworzyliśmy codem to segue tez musimy zorbić z programu czyli najpierw perform a nastepnie prepare for segue
+    func buttonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "ShowDetail", sender: sender)
     }
     
     private func downloadImage(for searchResult: SearchResult, andPlaceOn button: UIButton) {
