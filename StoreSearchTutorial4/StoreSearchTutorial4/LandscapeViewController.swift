@@ -63,7 +63,7 @@ class LandscapeViewController: UIViewController {
             case .notSearchedYet:
                 break
             case .loading:
-                break
+                showSpinner()
             case .noResults:
                 break
             case .results(let list):
@@ -187,6 +187,31 @@ class LandscapeViewController: UIViewController {
             //dodajemy kolejno wszystkie zadania ściągnięcia obrazka do arreyki downloadTasków
             downloadTasks.append(downloadTask)
         }
+    }
+    
+    private func showSpinner() {
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        // spiner ma 37 punktów w: 37 h: 37 więc jak byśmy go wrzucili na środku to byłby np na x:265.5, y:141.5 to spowodowałoby że spiner byłby zamazany żeby tego uniknąć trzeba dodać pół punkta
+        spinner.center = CGPoint(x: scrollView.bounds.midX + 0.5,
+                                 y: scrollView.bounds.midY + 0.5)
+        spinner.tag = 1000
+        view.addSubview(spinner)
+        spinner.startAnimating()
+    }
+    
+    func searchResultsReceived() {
+        hideSpinner()
+        
+        switch search.state {
+        case .notSearchedYet, .loading, .noResults:
+            break
+        case .results(let list):
+            tileButtons(list)
+        }
+    }
+    
+    private func hideSpinner() {
+        view.viewWithTag(1000)?.removeFromSuperview()
     }
     
 
