@@ -55,9 +55,21 @@ class LandscapeViewController: UIViewController {
                                    width: view.frame.size.width,
                                    height: pageControl.frame.size.height)
         
+        // jeśli nie możemy jeszcze wypełnić statów poszczególnych to w case robimy break
         if firstTime {
             firstTime = false
-            tileButtons(search.searchResults)
+            
+            switch search.state {
+            case .notSearchedYet:
+                break
+            case .loading:
+                break
+            case .noResults:
+                break
+            case .results(let list):
+                tileButtons(list)
+                
+            }
         }
     }
 
