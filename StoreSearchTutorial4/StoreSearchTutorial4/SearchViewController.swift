@@ -179,7 +179,7 @@ extension SearchViewController: UISearchBarDelegate {
         if let category = Search.Category(rawValue: segmentedControl.selectedSegmentIndex) {
         search.performSearch(for: searchBar.text!, category: category, completion: { success in
             //sleep(Int) wrzuca aplikacje w sen na okreslony czas super do testowania
-            sleep(5)
+            sleep(2)
             if !success {
                 self.showNetworkError()
             }

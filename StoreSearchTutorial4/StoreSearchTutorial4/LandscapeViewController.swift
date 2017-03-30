@@ -65,7 +65,7 @@ class LandscapeViewController: UIViewController {
             case .loading:
                 showSpinner()
             case .noResults:
-                break
+                showNothingFoundLabel()
             case .results(let list):
                 tileButtons(list)
                 
@@ -212,6 +212,27 @@ class LandscapeViewController: UIViewController {
     
     private func hideSpinner() {
         view.viewWithTag(1000)?.removeFromSuperview()
+    }
+    
+    private func showNothingFoundLabel() {
+        let label = UILabel(frame: CGRect.zero)
+        label.text = "Nothing Found"
+        label.textColor = UIColor.white
+        label.backgroundColor = UIColor.clear
+        
+        //dopasowanie rozmiaru labela do textu tak jak Win + = w storyboard
+        label.sizeToFit()
+        
+        var rect = label.frame
+        
+        // ceil służy do zaokrąglania wartości jeśli label miałby w: 13 to dzielimy go na pół 6.5 zaokrąglamy do 7 i mnożymy x 2 wszystko to trzeba robic jak są to CGFloat bo mogą być ułamkiem w Int nie ma takiej potrzeby
+        rect.size.width = ceil(rect.size.width/2) * 2
+        rect.size.height = ceil(rect.size.height/2) * 2
+        label.frame = rect
+        
+        label.center = CGPoint(x: scrollView.bounds.midX,
+                               y: scrollView.bounds.midY)
+        view.addSubview(label)
     }
     
 
