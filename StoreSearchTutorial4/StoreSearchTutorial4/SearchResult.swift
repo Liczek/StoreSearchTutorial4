@@ -8,6 +8,18 @@
 
 import Foundation
 
+// tworzymy dictionary z [key : kind]
+private let displayNamesForKind = [
+"album": NSLocalizedString("Album", comment: "Localized kind: Album"),
+"audiobook": NSLocalizedString("AudioBook", comment: "Localized kind: Audio Book"),
+"book": NSLocalizedString("Book", comment: "Localized kind: Book"),
+"ebook": NSLocalizedString("E-Book", comment: "Localized kind: E-Book"),
+"feature-movie": NSLocalizedString("Movie", comment: "Localized kind: Feature Movie"),
+"music-video": NSLocalizedString("Music Video", comment: "Localized kind: Music Video"),
+"podcast": NSLocalizedString("Podcast", comment: "Localized kind: Podcast"),
+"software": NSLocalizedString("App", comment: "Localized kind: Software"),
+"song": NSLocalizedString("Song", comment: "Localized kind: Song"),
+"tv-episode": NSLocalizedString("TV Episode", comment: "Localized kind: TV Episode"),]
 
 class SearchResult {
     var name = ""
@@ -24,19 +36,8 @@ class SearchResult {
     // słowniczek - kind na wyświetlany kind
     //nie trzeba tworzyć kind w nawiasie (_ kind: String) bo już mamy kind property w SearchResult class
     func kindForDisplay() -> String {
-        switch kind {
-        case "album": return NSLocalizedString("Album", comment: "Localized kind: Album")
-        case "audiobook": return NSLocalizedString("AudioBook", comment: "Localized kind: Audio Book")
-        case "book": return NSLocalizedString("Book", comment: "Localized kind: Book")
-        case "ebook": return NSLocalizedString("E-Book", comment: "Localized kind: E-Book")
-        case "feature-movie": return NSLocalizedString("Movie", comment: "Localized kind: Feature Movie")
-        case "music-video": return NSLocalizedString("Music Video", comment: "Localized kind: Music Video")
-        case "podcast": return NSLocalizedString("Podcast", comment: "Localized kind: Podcast")
-        case "software": return NSLocalizedString("App", comment: "Localized kind: Software")
-        case "song": return NSLocalizedString("Song", comment: "Localized kind: Song")
-        case "tv-episode": return NSLocalizedString("TV Episode", comment: "Localized kind: TV Episode")
-        default: return kind
-        }
+        //dictionary zawsze jest optional w sytuacji jak nie znajdzie key (czyli kind z JSON) i nie moze podac wyniku to poprostu zróci key czyli kind z JSON
+        return displayNamesForKind[kind] ?? kind
     }
 
     
