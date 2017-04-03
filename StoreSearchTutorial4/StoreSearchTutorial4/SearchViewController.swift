@@ -203,8 +203,8 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func showNetworkError() {
-        let alert = UIAlertController(title: "Whooops....", message: "There was an error reading from the iTunes Store. Please try again", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let alert = UIAlertController(title: NSLocalizedString("Whooops....", comment: "Error alert: title"), message: NSLocalizedString("There was an error reading from the iTunes Store. Please try again", comment: "Error alert: message"), preferredStyle: .alert)
+        let action = UIAlertAction(title: NSLocalizedString("OK", comment: "Confirm Action button: agree"), style: .default, handler: nil)
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
