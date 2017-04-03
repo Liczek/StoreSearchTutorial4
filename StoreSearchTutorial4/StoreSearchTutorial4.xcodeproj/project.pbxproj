@@ -10,6 +10,7 @@
 		C8311AD31E92C85600EC4EDD /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8311AD51E92C85600EC4EDD /* NothingFoundCell.xib */; };
 		C8311AD81E92C92000EC4EDD /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8311ADA1E92C92000EC4EDD /* LoadingCell.xib */; };
 		C8311AE31E92CF9B00EC4EDD /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8311AE51E92CF9B00EC4EDD /* SearchResultCell.xib */; };
+		C8311AE81E92D68A00EC4EDD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C8311AE61E92D68A00EC4EDD /* Localizable.strings */; };
 		C840D50D1E89A83F00547FDB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C840D50C1E89A83F00547FDB /* GradientView.swift */; };
 		C840D50F1E89B33100547FDB /* BounceAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C840D50E1E89B33100547FDB /* BounceAnimationController.swift */; };
 		C8484C1E1E8AE32D00DFB100 /* SlideOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8484C1D1E8AE32D00DFB100 /* SlideOutAnimationController.swift */; };
@@ -37,6 +38,9 @@
 		C8311AE01E92CCDD00EC4EDD /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		C8311AE21E92CF0600EC4EDD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
 		C8311AE41E92CF9B00EC4EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SearchResultCell.xib; sourceTree = "<group>"; };
+		C8311AE71E92D68A00EC4EDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C8311AE91E92D71100EC4EDD /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C8311AEA1E92D7A300EC4EDD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C840D50C1E89A83F00547FDB /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		C840D50E1E89B33100547FDB /* BounceAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceAnimationController.swift; sourceTree = "<group>"; };
 		C8484C1D1E8AE32D00DFB100 /* SlideOutAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutAnimationController.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 				C8706A941E88629A00B37BE8 /* DimmingPresentationController.swift */,
 				C8706A901E88480900B37BE8 /* UIImageView+DownloadImage.swift */,
 				C85666911E831FFD00DC4F90 /* SearchResult.swift */,
+				C8311AE61E92D68A00EC4EDD /* Localizable.strings */,
 				C8311AE51E92CF9B00EC4EDD /* SearchResultCell.xib */,
 				C8311AD51E92C85600EC4EDD /* NothingFoundCell.xib */,
 				C8311ADA1E92C92000EC4EDD /* LoadingCell.xib */,
@@ -172,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C85666871E8308E800DC4F90 /* Assets.xcassets in Resources */,
+				C8311AE81E92D68A00EC4EDD /* Localizable.strings in Resources */,
 				C8311AD81E92C92000EC4EDD /* LoadingCell.xib in Resources */,
 				C8311AE31E92CF9B00EC4EDD /* SearchResultCell.xib in Resources */,
 				C8311AD31E92C85600EC4EDD /* NothingFoundCell.xib in Resources */,
@@ -231,6 +237,16 @@
 				C8311AE41E92CF9B00EC4EDD /* Base */,
 			);
 			name = SearchResultCell.xib;
+			sourceTree = "<group>";
+		};
+		C8311AE61E92D68A00EC4EDD /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C8311AE71E92D68A00EC4EDD /* en */,
+				C8311AE91E92D71100EC4EDD /* nl */,
+				C8311AEA1E92D7A300EC4EDD /* pl */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		C85666831E8308E800DC4F90 /* Main.storyboard */ = {
