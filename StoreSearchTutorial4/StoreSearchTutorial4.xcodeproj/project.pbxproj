@@ -39,8 +39,8 @@
 		C8311AE21E92CF0600EC4EDD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
 		C8311AE41E92CF9B00EC4EDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SearchResultCell.xib; sourceTree = "<group>"; };
 		C8311AE71E92D68A00EC4EDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C8311AE91E92D71100EC4EDD /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C8311AEA1E92D7A300EC4EDD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C8311AEB1E92DD2200EC4EDD /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C8311AEC1E92DD2500EC4EDD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C840D50C1E89A83F00547FDB /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		C840D50E1E89B33100547FDB /* BounceAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BounceAnimationController.swift; sourceTree = "<group>"; };
 		C8484C1D1E8AE32D00DFB100 /* SlideOutAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideOutAnimationController.swift; sourceTree = "<group>"; };
@@ -243,8 +243,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				C8311AE71E92D68A00EC4EDD /* en */,
-				C8311AE91E92D71100EC4EDD /* nl */,
-				C8311AEA1E92D7A300EC4EDD /* pl */,
+				C8311AEB1E92DD2200EC4EDD /* nl */,
+				C8311AEC1E92DD2500EC4EDD /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

@@ -44,7 +44,7 @@ class SearchResultCell: UITableViewCell {
         if searchResult.artistName.isEmpty {
             artistNameLabel.text = NSLocalizedString("Unknown", comment: "Artist name label: name")
         } else {
-            artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, searchResult.kindForDisplay())
+            artistNameLabel.text = String(format: NSLocalizedString("ARTIST_NAME_LABEL_FORMAT", comment: "Format for artist name label") , searchResult.artistName, searchResult.kindForDisplay())
         }
         
         // załadowanie obrazka do UIImageView
