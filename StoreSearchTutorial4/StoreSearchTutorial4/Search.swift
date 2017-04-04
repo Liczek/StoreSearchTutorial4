@@ -101,12 +101,21 @@ class Search {
         
         //przypisanie do Segment Control indexów wrapperTypes z JSON
         let entityName = category.entityName
+        
+        //ustawienie regionu w jakim sie znajduje urzadzenie
+        let locale = Locale.autoupdatingCurrent
+        
+        let language = locale.identifier
+        let countryCode = locale.regionCode ?? "en_US"
+        
         //poniższa linijka jest po zeby było można spacje wyszukiwać
         let escapedSearchText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         
         //&limit=200 ustawia z default limit = 50 na 200 wyników
-        let urlString = String(format: "https://itunes.apple.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
+        let urlString = String(format: "https://itunes.apple.com/search?term=%@&limit=200&entity=%@&lang=%@&country=%@", escapedSearchText, entityName, language, countryCode)
+        
         let url = URL(string: urlString)
+        print("URL: \(url!)")
         return url!
     }
 
