@@ -91,6 +91,11 @@ class SearchViewController: UIViewController {
             if case .results(let list) = search.state {
                 splitViewDetail?.searchResult = list[indexPath.row]
             }
+            
+            // allVisible występuje tylko w landscape wtedy urchamiamy funkcje hideMasterPane
+            if splitViewController!.displayMode != .allVisible {
+                hideMasterPane()
+            }
         }
     }
     
@@ -135,6 +140,16 @@ class SearchViewController: UIViewController {
     }
     
 //MARK: - RANDOM METHODS
+    
+    func hideMasterPane() {
+        UIView.animate(withDuration: 0.25, animations: {
+            //każdy split-view ma wbudowane opcje wyswietlania primaryHidden ukrywa masterViewPane
+        self.splitViewController!.preferredDisplayMode = .primaryHidden
+        }, completion: {_ in
+            //completion powoduje przelaczenie sie mode do .automatic po zakonczeniu animacji, w momencie przekrecenia w landscape master view pane bedzie widoczny
+        self.splitViewController!.preferredDisplayMode = .automatic
+        })
+    }
     
         
 //MARK: - Landscape Mode
