@@ -281,6 +281,8 @@ class LandscapeViewController: UIViewController {
                 //zamiast otrzymania indexPath poprostu wyliczamy go sobie z button.tag pomniejszonego o wcześniej dodane 2000, teraz pozostało dodanie segue w storyboardzie
                 let searchResult = list[(sender as! UIButton).tag - 2000]
                 detailViewController.searchResult = searchResult
+                // zeby popup View pojawiało się na iPhonach
+                detailViewController.isPopUp = true
             }
         }
     }

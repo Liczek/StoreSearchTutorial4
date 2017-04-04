@@ -18,8 +18,18 @@ class DetailViewController: UIViewController {
     
     var dissmissAnimationStyle = AnimationStyle.fade
     
-    var searchResult: SearchResult!
+    // kiedy wartość searchResult sie zmieni sprawdzamy czy detailViewC is Loaded w iPhon nie jest loaded bo musimy jeszcze klinąć na row ale w iPad jest loaded bo to jeden z ciagle wyswietlanych elementów split-view czyli detail view. W ten sposób aplikacja wykrywa czy ma do czynienia z iPad czy iPhone jesli z iPad to odświerza UI w DetailVC czyli prawej części ekranu
+    var searchResult: SearchResult! {
+        didSet {
+            if isViewLoaded {
+                updateUI()
+            }
+        }
+    }
     var downloadTask: URLSessionDownloadTask?
+    
+    // variable potrzebny do okreslenia że w sytuacji iPad detail nie ma byc popUp view a w iPhone ma być popUpView
+    var isPopUp = false
     
 //MARK: - OUTLETS
     
@@ -45,15 +55,24 @@ class DetailViewController: UIViewController {
         view.backgroundColor = UIColor.clear
         
         popupView.layer.cornerRadius = 10
-        
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
-        gestureRecognizer.cancelsTouchesInView = false
-        gestureRecognizer.delegate = self
-        view.addGestureRecognizer(gestureRecognizer)
+        if isPopUp {
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
+            gestureRecognizer.cancelsTouchesInView = false
+            gestureRecognizer.delegate = self
+            view.addGestureRecognizer(gestureRecognizer)
+            
+            view.backgroundColor = UIColor.clear
+        } else {
+            view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
+            popupView.isHidden = true
+        }
         
         if searchResult != nil {
             updateUI()
         }
+        
+        
+        
         
         
         
@@ -121,6 +140,8 @@ class DetailViewController: UIViewController {
         if let largeURL = URL(string: searchResult.artworkLargeURL) {
             downloadTask = artworkImageView.loadImage(url: largeURL)
         }
+        
+        popupView.isHidden = false
     }
     
     deinit {

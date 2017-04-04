@@ -31,8 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+        //przycisk do wysuwania masterView
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+        
+        //searchVC musi dac referencje detailVC zeby mogl wiedziec ze ktos kliknal na row
+        searchViewController.splitViewDetail = detailViewController
         
         customizeAppearance()
         

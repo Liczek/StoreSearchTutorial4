@@ -30,6 +30,9 @@ class SearchViewController: UIViewController {
     
     var landscapeViewController: LandscapeViewController?
     
+    // optional bo może być nil jeśli uruchomimy na iPhone
+    weak var splitViewDetail: DetailViewController?
+    
 //MARK: - Views
     
     override func viewDidLoad() {
@@ -75,9 +78,17 @@ class SearchViewController: UIViewController {
 //MARK: - Table Views
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        //jako że nie można zrobić segue bezpośrednio z cellki bo cellka jest reusable a nie static jak we wcześniejszych tutorialach, to trzeba pociągnąć ją z całego View i zrobić perform segue przy tapie na row
-        performSegue(withIdentifier: "ShowDetail", sender: indexPath)
+        
+        searchBar.resignFirstResponder()
+        if view.window!.rootViewController!.traitCollection.horizontalSizeClass == .compact {
+            tableView.deselectRow(at: indexPath, animated: true)
+            //jako że nie można zrobić segue bezpośrednio z cellki bo cellka jest reusable a nie static jak we wcześniejszych tutorialach, to trzeba pociągnąć ją z całego View i zrobić perform segue przy tapie na row
+            performSegue(withIdentifier: "ShowDetail", sender: indexPath)
+        } else {
+            if case .results(let list) = search.state {
+                splitViewDetail?.searchResult = list[indexPath.row]
+            }
+        }
     }
     
     // uniemożliwia wybranie wiersza gdy searchResults.count zwraca 0 po wyszukaniu
@@ -106,6 +117,8 @@ class SearchViewController: UIViewController {
                 let searchResult = list[indexPath.row]
                 // poprzez indexPath.row ustalamy konkretny SsearchResult i implikujemy go do searchResult w DetailViewController
                 detailViewController.searchResult = searchResult
+                // zeby popup View pojawiało się na iPhonach
+                detailViewController.isPopUp = true
             }
         }
     }
