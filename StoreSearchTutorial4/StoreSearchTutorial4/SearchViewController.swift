@@ -34,6 +34,9 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = NSLocalizedString("Search", comment: "Split-view master button")
+        
         tableView.rowHeight = 80
         //ukrywanie klawiatury przy swipie
         tableView.keyboardDismissMode = .interactive
