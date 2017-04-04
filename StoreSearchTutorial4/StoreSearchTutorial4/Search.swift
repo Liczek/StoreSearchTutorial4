@@ -115,7 +115,9 @@ class Search {
         let urlString = String(format: "https://itunes.apple.com/search?term=%@&limit=200&entity=%@&lang=%@&country=%@", escapedSearchText, entityName, language, countryCode)
         
         let url = URL(string: urlString)
+        
         print("URL: \(url!)")
+        
         return url!
     }
 
