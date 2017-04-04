@@ -46,8 +46,11 @@ class SearchViewController: UIViewController {
         // żeby wydobyć rowsy ukryte pod search barem i segment controlerem
         tableView.contentInset = UIEdgeInsets(top: 108, left: 0, bottom: 0, right: 0)
         //klawiatura sie pojawia na starcie
-        searchBar.becomeFirstResponder()
         
+        //żeby na iPad nie było klawiatury na starcie
+        if UIDevice.current.userInterfaceIdiom != .pad {
+            searchBar.becomeFirstResponder()
+        }
         
         //Cell NIB register IMPORTANT
         var cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
