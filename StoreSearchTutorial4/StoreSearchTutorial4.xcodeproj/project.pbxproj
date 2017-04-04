@@ -23,6 +23,7 @@
 		C85666871E8308E800DC4F90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C85666861E8308E800DC4F90 /* Assets.xcassets */; };
 		C85666921E831FFD00DC4F90 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85666911E831FFD00DC4F90 /* SearchResult.swift */; };
 		C85666961E83386F00DC4F90 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85666951E83386F00DC4F90 /* SearchResultCell.swift */; };
+		C8599B291E93FD8100139857 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C8599B2B1E93FD8100139857 /* InfoPlist.strings */; };
 		C8706A911E88480900B37BE8 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8706A901E88480900B37BE8 /* UIImageView+DownloadImage.swift */; };
 		C8706A931E885D8B00B37BE8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8706A921E885D8B00B37BE8 /* DetailViewController.swift */; };
 		C8706A951E88629A00B37BE8 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8706A941E88629A00B37BE8 /* DimmingPresentationController.swift */; };
@@ -55,6 +56,9 @@
 		C856668B1E8308E800DC4F90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C85666911E831FFD00DC4F90 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		C85666951E83386F00DC4F90 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		C8599B2A1E93FD8100139857 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C8599B2C1E93FD8400139857 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C8599B2D1E93FD8500139857 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C8706A901E88480900B37BE8 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		C8706A921E885D8B00B37BE8 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C8706A941E88629A00B37BE8 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DimmingPresentationController.swift; path = ../DimmingPresentationController.swift; sourceTree = "<group>"; };
@@ -104,6 +108,7 @@
 				C8706A941E88629A00B37BE8 /* DimmingPresentationController.swift */,
 				C8706A901E88480900B37BE8 /* UIImageView+DownloadImage.swift */,
 				C85666911E831FFD00DC4F90 /* SearchResult.swift */,
+				C8599B2B1E93FD8100139857 /* InfoPlist.strings */,
 				C8311AE61E92D68A00EC4EDD /* Localizable.strings */,
 				C8311AE51E92CF9B00EC4EDD /* SearchResultCell.xib */,
 				C8311AD51E92C85600EC4EDD /* NothingFoundCell.xib */,
@@ -177,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C85666871E8308E800DC4F90 /* Assets.xcassets in Resources */,
+				C8599B291E93FD8100139857 /* InfoPlist.strings in Resources */,
 				C8311AE81E92D68A00EC4EDD /* Localizable.strings in Resources */,
 				C8311AD81E92C92000EC4EDD /* LoadingCell.xib in Resources */,
 				C8311AE31E92CF9B00EC4EDD /* SearchResultCell.xib in Resources */,
@@ -257,6 +263,16 @@
 				C8311AE21E92CF0600EC4EDD /* pl */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C8599B2B1E93FD8100139857 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C8599B2A1E93FD8100139857 /* Base */,
+				C8599B2C1E93FD8400139857 /* nl */,
+				C8599B2D1E93FD8500139857 /* pl */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
