@@ -108,13 +108,13 @@
 				C8706A941E88629A00B37BE8 /* DimmingPresentationController.swift */,
 				C8706A901E88480900B37BE8 /* UIImageView+DownloadImage.swift */,
 				C85666911E831FFD00DC4F90 /* SearchResult.swift */,
+				C856668B1E8308E800DC4F90 /* Info.plist */,
 				C8599B2B1E93FD8100139857 /* InfoPlist.strings */,
 				C8311AE61E92D68A00EC4EDD /* Localizable.strings */,
 				C8311AE51E92CF9B00EC4EDD /* SearchResultCell.xib */,
 				C8311AD51E92C85600EC4EDD /* NothingFoundCell.xib */,
 				C8311ADA1E92C92000EC4EDD /* LoadingCell.xib */,
 				C85666861E8308E800DC4F90 /* Assets.xcassets */,
-				C856668B1E8308E800DC4F90 /* Info.plist */,
 			);
 			path = StoreSearchTutorial4;
 			sourceTree = "<group>";
@@ -381,6 +381,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pawelliczmanski.StoreSearchTutorial4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -394,6 +395,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pawelliczmanski.StoreSearchTutorial4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
