@@ -5,3 +5,5 @@
   Created by Paweł Liczmański on 04.04.2017.
   Copyright © 2017 Paweł Liczmański. All rights reserved.
 */
+
+CFBundleDisplayName = "StoreSearch";
