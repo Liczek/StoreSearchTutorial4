@@ -255,6 +255,11 @@
                                     <constraint firstAttribute="bottom" secondItem="seC-lb-Mz3" secondAttribute="bottom" constant="4" id="wyr-PV-89R"/>
                                     <constraint firstItem="seC-lb-Mz3" firstAttribute="top" secondItem="vdW-yf-W7M" secondAttribute="bottom" constant="10" id="yLW-ea-K7i"/>
                                 </constraints>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="subviews">
+                                        <exclude reference="oya-iT-akQ"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.4964439655172414" colorSpace="calibratedWhite"/>
