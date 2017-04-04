@@ -37,6 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //searchVC musi dac referencje detailVC zeby mogl wiedziec ze ktos kliknal na row
         searchViewController.splitViewDetail = detailViewController
         
+        //mówimi split-viewControllerowi ze app Delegate jest jego delegatem
+        splitViewController.delegate = self
+        
         customizeAppearance()
         
         
@@ -75,5 +78,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
 
+}
+
+// ta funkcja zamyka prezentowany view controller jesli displey change zmieni sie na .primarOverlay czyli gdy master Pane stanie sie widoczny
+extension AppDelegate: UISplitViewControllerDelegate {
+    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
+        print(#function)
+        if displayMode == .primaryOverlay {
+            svc.dismiss(animated: true, completion: nil)
+        }
+    }
 }
 
