@@ -207,15 +207,10 @@ class SearchViewController: UIViewController {
             })
         }
     }
-    
-
-
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         performSearch()
     }
-
-
 }
 
 //MARK: - SearchBarDelegate
