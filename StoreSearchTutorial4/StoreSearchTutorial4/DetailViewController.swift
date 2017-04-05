@@ -7,6 +7,8 @@
 //
 
 import UIKit
+//MFMailComposeVC żyje w MessageUI
+import MessageUI
 
 class DetailViewController: UIViewController {
     
@@ -147,6 +149,13 @@ class DetailViewController: UIViewController {
         popupView.isHidden = false
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowMenu" {
+            let controller = segue.destination as! MenuViewController
+            controller.delegate = self
+        }
+    }
+    
     deinit {
         print("deinit \(self)")
         downloadTask?.cancel()
@@ -178,5 +187,28 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
 extension DetailViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return (touch.view === self.view)
+    }
+}
+
+extension DetailViewController: MenuViewControllerDelegate {
+    func menuViewControllerSendSupportEmail(_ controller: MenuViewController) {
+        //wpisując zadnie w closur (completion) zaczynamy realizować zadanie z closure dopiero po zakończeniu animacji ukrywania popovera, żeby puścic maila musisz nadać mu tytul i odbiorce
+        dismiss(animated: true) {
+            if MFMailComposeViewController.canSendMail() {
+                let controller = MFMailComposeViewController()
+                controller.setSubject(NSLocalizedString("Support Request", comment: "Email subject"))
+                controller.setToRecipients(["your@email-address-here.com"])
+                self.present(controller, animated: true, completion: nil)
+                controller.mailComposeDelegate = self
+                // normalnie email compose zajmuje część ekranu (.pageSheet)ale można to zmieniać
+                controller.modalPresentationStyle = .formSheet
+            }
+        }
+    }
+}
+// dismiss emailCompose bez znaczenia czy wyslesz czy cancelujesz wysylanie
+extension DetailViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true, completion: nil)
     }
 }

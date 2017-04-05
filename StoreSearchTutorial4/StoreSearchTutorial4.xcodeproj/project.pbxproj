@@ -24,6 +24,7 @@
 		C85666921E831FFD00DC4F90 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85666911E831FFD00DC4F90 /* SearchResult.swift */; };
 		C85666961E83386F00DC4F90 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85666951E83386F00DC4F90 /* SearchResultCell.swift */; };
 		C8599B291E93FD8100139857 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C8599B2B1E93FD8100139857 /* InfoPlist.strings */; };
+		C85E688B1E9565F100393056 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85E688A1E9565F100393056 /* MenuViewController.swift */; };
 		C8706A911E88480900B37BE8 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8706A901E88480900B37BE8 /* UIImageView+DownloadImage.swift */; };
 		C8706A931E885D8B00B37BE8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8706A921E885D8B00B37BE8 /* DetailViewController.swift */; };
 		C8706A951E88629A00B37BE8 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8706A941E88629A00B37BE8 /* DimmingPresentationController.swift */; };
@@ -59,6 +60,7 @@
 		C8599B2A1E93FD8100139857 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C8599B2C1E93FD8400139857 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C8599B2D1E93FD8500139857 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C85E688A1E9565F100393056 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = ../MenuViewController.swift; sourceTree = "<group>"; };
 		C8706A901E88480900B37BE8 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		C8706A921E885D8B00B37BE8 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C8706A941E88629A00B37BE8 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DimmingPresentationController.swift; path = ../DimmingPresentationController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				C85666831E8308E800DC4F90 /* Main.storyboard */,
+				C85E688A1E9565F100393056 /* MenuViewController.swift */,
 				C840D50C1E89A83F00547FDB /* GradientView.swift */,
 				C848820D1E8C4A1900792921 /* Search.swift */,
 				C856667F1E8308E700DC4F90 /* AppDelegate.swift */,
@@ -201,6 +204,7 @@
 				C848820E1E8C4A1900792921 /* Search.swift in Sources */,
 				C85666821E8308E700DC4F90 /* SearchViewController.swift in Sources */,
 				C8706A951E88629A00B37BE8 /* DimmingPresentationController.swift in Sources */,
+				C85E688B1E9565F100393056 /* MenuViewController.swift in Sources */,
 				C8484C221E8AFF8600DFB100 /* FadeOutAnimationController.swift in Sources */,
 				C85666921E831FFD00DC4F90 /* SearchResult.swift in Sources */,
 				C85666961E83386F00DC4F90 /* SearchResultCell.swift in Sources */,
